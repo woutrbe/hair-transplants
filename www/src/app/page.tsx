@@ -67,18 +67,30 @@ export default function Home() {
 						<div>
 							<h3 className="text-slate-900 text-xl font-semibold mb-5">About Us</h3>
 
-							<div className="flex flex-col text-slate-900">
-								<a href="/" title="Our Mission" className="hover:underline">Our Mission</a>
+							<div className="text-slate-900">
+								<ul>
+									<li>
+										<a href="/" title="Our Mission" className="hover:underline">Our Mission</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 
 						<div>
 							<h3 className="text-slate-900 text-xl font-semibold mb-5">Resources</h3>
 
-							<div className="flex flex-col text-slate-900">
-								<a href="/" title="Hair Loss Guide" className="hover:underline">Hair Loss Guide</a>
-								<a href="/" title="Treatment Options" className="hover:underline">Treatment Options</a>
-								<a href="/" title="Hair Loss Guide" className="hover:underline">Hair Loss Guide</a>
+							<div className="text-slate-900">
+								<ul>
+									<li>
+										<a href="/" title="Hair Loss Guide" className="hover:underline">Hair Loss Guide</a>
+									</li>
+									<li>
+										<a href="/" title="Treatment Options" className="hover:underline">Treatment Options</a>
+									</li>
+									<li>
+										<a href="/" title="Hair Loss Guide" className="hover:underline">Hair Loss Guide</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
