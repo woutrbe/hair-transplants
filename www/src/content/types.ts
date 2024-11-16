@@ -11,17 +11,13 @@ export type Treatment = {
 		from: number;
 		to: number;
 	};
-
 	clinic: {
 		name: string;
 		url: string;
-
 		city: string;
 		country: string;
-
 		languages: string[];
 	};
-
 	price: {
 		local_price: number;
 		local_currency: string;
