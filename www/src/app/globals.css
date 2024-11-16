@@ -1,27 +1,27 @@
+@import 'rc-slider/assets/index.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
+	--background: #fff;
+	--text: #171717;
 }
 
 body {
-	color: var(--foreground);
+	color: var(--text);
 	background: var(--background);
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer utilities {
-	.text-balance {
-		text-wrap: balance;
+.filters {
+	.filter {
+		@apply border-b border-gray-300 py-5;
+
+		.filter__title {
+			@apply font-semibold;
+			@apply mb-1;
+		}
 	}
 }
