@@ -1,6 +1,5 @@
 import { Star, MapPin, Globe, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
-import { Badge } from "@/components/ui/badge" // we have to be able to refer ours somehow.
 
 import { Treatment } from "../content/types";
 

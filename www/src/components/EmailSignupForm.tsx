@@ -10,7 +10,7 @@ export default function EmailSignupForm() {
 				id="tally-js"
 				src="https://tally.so/widgets/embed.js"
 				onLoad={() => {
-					// @ts-expect-error
+					// @ts-expect-error I don't know, this shit don't work
 					Tally.loadEmbeds();
 				}}
 			/>
