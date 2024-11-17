@@ -26,15 +26,15 @@ export default function TreatmentCard({
             <div className="grid grid-cols-4 gap-6">
               {/* Section 1: Metadata */}
               <div className="col-span-4 sm:col-span-1 flex sm:flex-col items-center sm:items-start gap-4">
-                {/* <Image
-                  src='/placeholder.png'
+                <Image
+                  src='/clinics/DrAcar_cosmedia.png'
                   alt={`${treatment.clinic.name} logo`}
-                  width={60}
+                  width={200}
                   height={60}
                   className="rounded-lg"
-                /> */}
+                />
+                <h2 className="text-2xl font-bold text-primary mb-1">{treatment.clinic.name}</h2>
                 <div>
-                  <h2 className="text-xl font-semibold mb-2">{treatment.clinic.name}</h2>
                   <div className="flex items-center gap-1 text-muted-foreground text-sm mb-1">
                     <MapPin className="w-4 h-4" />
                     <span>{treatment.clinic.city}, {treatment.clinic.country}</span>
