@@ -41,12 +41,13 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 	});
 
 	return parsed.map((d: any) => {
+		const [minGrafts, maxGrafts] = d['Grafts'].split(' - ');
 
 		const treatment: Treatment = {
 			method: d['Method'],
 			grafts: {
-				from: parseFloat(d['Grafts']),
-				to: parseFloat(d['Grafts']),
+				from: parseFloat(minGrafts),
+				to: parseFloat(maxGrafts ?? d['Grafts']),
 			},
 
 			clinic: {

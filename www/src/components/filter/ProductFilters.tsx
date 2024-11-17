@@ -1,10 +1,9 @@
 'use client';
 
 import { Treatment } from "../../content/types"
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import Slider from 'rc-slider';
 import Checkbox from "../ui/Checkbox";
-import { useState } from "react";
 
 interface Props {
 	treatments: Treatment[];
@@ -12,26 +11,50 @@ interface Props {
 	onSubmit: (treatments: Treatment[]) => void;
 }
 
+interface FormFilterValues {
+	minPrice: number;
+	maxPrice: number;
+
+	minGrafts: number;
+	maxGrafts: number;
+
+	method: string[];
+}
+
 export default function ProductFilters({
 	treatments,
 
 	onSubmit
 }: Props) {
+	const initialValues: FormFilterValues = {
+		minPrice: 0,
+		maxPrice: 100,
+
+		minGrafts: 1000,
+		maxGrafts: 10000,
+
+		method: Array.from(new Set(treatments.map(t => t.method))),
+	}
+
+	const filterTreatments = (treatments: Treatment[], filters: FormFilterValues): Treatment[] => {
+		// Method
+		treatments = treatments.filter(t => filters.method.includes(t.method));
+
+		// Price
+		treatments = treatments.filter(t => t.price.usd_price >= filters.minPrice && t.price.usd_price <= filters.maxPrice);
+
+
+		// Grafts
+		treatments = treatments.filter(t => t.grafts.from > filters.minGrafts && t.grafts.to < filters.maxGrafts);
+
+		return treatments;
+	}
+
 	return (
 		<Formik
-			initialValues={{
-				minPrice: 0,
-				maxPrice: 100,
-
-				minGrafts: 1000,
-				maxGrafts: 10000,
-
-				method: ['FUE', 'DHI', 'MICRO FUE'],
-			}}
-			onSubmit={(values: any) => {
-				console.log(values);
-
-				onSubmit(treatments);
+			initialValues={initialValues}
+			onSubmit={(values: FormFilterValues) => {
+				onSubmit(filterTreatments(treatments, values));
 			}}
 		>
 			{({
@@ -89,7 +112,7 @@ export default function ProductFilters({
 								<div className="filter__title">Treatment method</div>
 
 								<div className="space-y-2">
-									{['FUE', 'DHI', 'MICRO FUE'].map(option => (
+									{Array.from(new Set(treatments.map(t => t.method))).map(option => (
 										<Checkbox key={option} name="method" value={option} checked={false} htmlFor={option} label={option} />
 									))}
 								</div>

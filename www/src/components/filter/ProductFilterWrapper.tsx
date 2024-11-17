@@ -39,7 +39,7 @@ export default function ProductFilterWrapper({
 			<div className="w-8/12">
 				<div className="flex justify-between items-end border-b border-gray-300 pb-2 mb-5">
 					<h3>Hair loss treatments</h3>
-					<div className="text-sm text-gray-700">Showing <strong>{treatments.length}</strong> options available</div>
+					<div className="text-sm text-gray-700">Showing <strong>{filteredTreatments.length}</strong> options available</div>
 				</div>
 
 				<div className="space-y-5">
