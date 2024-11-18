@@ -37,11 +37,19 @@ export default function ProductFilterWrapper({
 			</div>
 
 			<div className="w-8/12">
-				<div className="flex justify-between items-end border-b border-gray-300 pb-2 mb-5">
-					<h3>Hair loss treatments</h3>
+				<div className="bg-white sticky top-0 z-10 shadow-md text-center">
+					<div className="grid grid-cols-4 gap-6 p-4 text-sm font-semibold text-muted-foreground">
+					<div>Clinic</div>
+					<div>Reviews</div>
+					<div>Total Price</div>
+					<div>Price per Graft</div>
+					</div>
+				</div>
+			
+				<div className="flex justify-end border-b border-gray-300 pb-2 pt-2 mb-5">
 					<div className="text-sm text-gray-700">Showing <strong>{filteredTreatments.length}</strong> options available</div>
 				</div>
-
+			
 				<div className="space-y-5">
 					{isLoading && <div className='flex items-center justify-center py-10'>
 						<Loader2 className='size-10 animate-spin' />

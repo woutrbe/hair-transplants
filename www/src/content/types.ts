@@ -14,6 +14,7 @@ export type Treatment = {
 	clinic: {
 		name: string;
 		url: string;
+		imagePath: string;
 		city: string;
 		country: string;
 		languages: string[];
@@ -26,7 +27,11 @@ export type Treatment = {
 
 	review: {
 		score: number;
+		source: string;
+		totalReviews: number;
 	}
+
+	badges: string[];
 }
 
 const getJSONFile = async <T>(file: string): Promise<T> => {
@@ -53,6 +58,7 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 			clinic: {
 				name: d['ClinicName'],
 				url: d['URL'],
+				imagePath: d['LogoName'],
 
 				city: d['City'],
 				country: d['Country'],
@@ -69,7 +75,11 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 
 			review: {
 				score: parseFloat(d['Review Score']),
-			}
+				source: d['Source'],
+				totalReviews: d['Total Reviews'],
+			},
+
+			badges: d['Badges'].split(', ')
 		}
 
 		return treatment;
