@@ -79,7 +79,7 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 				totalReviews: d['Total Reviews'],
 			},
 
-			badges: d['Badges'].split(', ')
+			badges: d['Method'].split(', ')
 		}
 
 		return treatment;
