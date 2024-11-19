@@ -28,7 +28,7 @@ export default function ProductFilters({
 }: Props) {
 	const initialValues: FormFilterValues = {
 		minPrice: 0,
-		maxPrice: 100,
+		maxPrice: 100000,
 
 		minGrafts: 1000,
 		maxGrafts: 10000,
@@ -37,12 +37,16 @@ export default function ProductFilters({
 	}
 
 	const filterTreatments = (treatments: Treatment[], filters: FormFilterValues): Treatment[] => {
+		console.log({
+			treatments,
+			filters
+		});
+
 		// Method
 		treatments = treatments.filter(t => filters.method.includes(t.method));
 
 		// Price
 		treatments = treatments.filter(t => t.price.usd_price >= filters.minPrice && t.price.usd_price <= filters.maxPrice);
-
 
 		// Grafts
 		treatments = treatments.filter(t => t.grafts.from > filters.minGrafts && t.grafts.to < filters.maxGrafts);
@@ -83,9 +87,9 @@ export default function ProductFilters({
 
 								<div>
 									<div className="text-sm text-gray-700 mb-1">
-										US$ {(values.minPrice * 1000).toLocaleString('en-US')} - US$ {(values.maxPrice * 1000).toLocaleString('en-US')}
+										US$ {values.minPrice.toLocaleString('en-US')} - US$ {values.maxPrice.toLocaleString('en-US')}
 									</div>
-									<Slider range allowCross={false} value={[values.minPrice, values.maxPrice]} defaultValue={[values.minPrice, values.maxPrice]} min={0} max={100} step={.2} onChange={value => {
+									<Slider range allowCross={false} value={[values.minPrice, values.maxPrice]} defaultValue={[values.minPrice, values.maxPrice]} min={0} max={100000} step={1000} onChange={value => {
 										const [min, max] = value as [number, number];
 										setFieldValue('minPrice', min);
 										setFieldValue('maxPrice', max);
