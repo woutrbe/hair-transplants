@@ -29,12 +29,20 @@ export default function RootLayout({
 									Expert doctors ready to help you achieve the hair you&apos;ve always wanted.
 								</p>
 
-								<button className="bg-purple-600 hover:bg-purple-700 text-white rounded-lg px-5 py-3 flex items-center gap-2">
-									Find your clinic
+								<a href="/" className="bg-purple-600 hover:bg-purple-700 text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
+									Search all clinics
 									<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
 									</svg>
-								</button>
+								</a>
+
+
+								<a href="/mission" className="bg-purple-600 hover:bg-purple-700 text-white rounded-lg px-5 py-3 inline-flex items-center gap-2 ml-4">
+									Read about our mission
+									<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+									</svg>
+								</a>
 							</div>
 
 							<div className="w-1/2 hidden lg:flex justify-end">

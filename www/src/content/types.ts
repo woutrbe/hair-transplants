@@ -58,6 +58,20 @@ export type HomePage = {
 	}
 }
 
+export type MissionPage = {
+	content: string;
+	data: {
+		title: string;
+		description: string;
+		slug: string;
+		faq: {
+			q: string;
+			a: string;
+		}[];
+	}
+}
+
+
 const getJSONFile = async <T>(file: string): Promise<T> => {
 	const content = readFileSync(`${process.cwd()}/src/content/${file}.json`, 'utf-8');
 	return JSON.parse(content) as T;
