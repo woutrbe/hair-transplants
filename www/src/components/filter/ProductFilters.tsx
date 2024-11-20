@@ -37,11 +37,6 @@ export default function ProductFilters({
 	}
 
 	const filterTreatments = (treatments: Treatment[], filters: FormFilterValues): Treatment[] => {
-		console.log({
-			treatments,
-			filters
-		});
-
 		// Method
 		treatments = treatments.filter(t => filters.method.includes(t.method));
 

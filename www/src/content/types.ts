@@ -1,4 +1,6 @@
 import { readFileSync } from "fs";
+import { glob } from "glob";
+import matter from "gray-matter";
 import { parse } from 'csv-parse/sync';
 
 export type Config = {
@@ -32,6 +34,28 @@ export type Treatment = {
 	}
 
 	badges: string[];
+}
+
+export type Page = {
+	content: string;
+	data: {
+		title: string;
+		description: string;
+		slug: string;
+	}
+}
+
+export type HomePage = {
+	content: string;
+	data: {
+		title: string;
+		description: string;
+		slug: string;
+		faq: {
+			q: string;
+			a: string;
+		}[];
+	}
 }
 
 const getJSONFile = async <T>(file: string): Promise<T> => {
@@ -88,3 +112,19 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 
 export const getConfig = async (): Promise<Config> => await getJSONFile<Config>('config');
 export const getTreatments = async (): Promise<Treatment[]> => await getCSVFile<Treatment>('clinics');
+
+const getMarkdownFiles = async <T>(directory: string): Promise<T[]> => {
+	const files = await glob(`${process.cwd()}/src/content/${directory}/**/*.md`);
+	return await Promise.all(files.map(f => {
+		const content = readFileSync(f, 'utf-8');
+		return matter(content) as T;
+	}));
+}
+
+export const getPages = async (): Promise<Page[]> => await getMarkdownFiles<Page>('pages');
+export const getPage = async (slug: string): Promise<Page> => {
+	const page = (await getMarkdownFiles<Page>('pages')).find(p => p.data.slug === slug);
+	if(!page) throw new Error(`Page ${slug} not found.`);
+
+	return page;
+};
