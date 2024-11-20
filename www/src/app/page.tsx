@@ -21,6 +21,9 @@ export default async function Home() {
 
 	return (
 		<>
+			<div>
+				<ProductFilterWrapper treatments={treatments} />
+			</div>
 			<div className="max-w-3xl mx-auto mb-10">
 				<div className="text-center mb-2">
 					<div className="text-2xl font-medium  mb-2">Frequently asked questions</div>
@@ -34,10 +37,6 @@ export default async function Home() {
 						</div>
 					)
 				})}
-			</div>
-
-			<div>
-				<ProductFilterWrapper treatments={treatments} />
 			</div>
 		</>
 	);

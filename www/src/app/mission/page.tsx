@@ -115,6 +115,20 @@ export default async function Why() {
 					</a>
 				</div>
 			</section>
+			<section className="max-w-3xl mx-auto mb-10 mt-10">
+				<div className="text-center mb-2">
+					<div className="text-2xl font-medium  mb-2">Frequently asked questions</div>
+				</div>
+
+				{missionPage.data.faq.map((faq, i) => {
+					return (
+						<div key={i} className="bg-white/5 px-6 py-6 border-b border-gray-300">
+							<div className="font-semibold text-gray-900 hover:no-underline mb-2">{faq.q}</div>
+							<div className="text-gray-600">{faq.a}</div>
+						</div>
+					)
+				})}
+			</section>
       </div>
 	);
 }

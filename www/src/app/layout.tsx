@@ -69,7 +69,6 @@ export default function RootLayout({
 								</h1>
 								<div className="text-slate-900">Helping you find the best hair transplant clinics worldwide.</div>
 							</div>
-
 							<div className="ml-auto">
 								<form action="/">
 									<div className="flex space-x-5">
@@ -82,11 +81,10 @@ export default function RootLayout({
 						<div className="grid grid-cols-1 md:grid-cols-3 space-y-10 md:space-y-0">
 							<div>
 								<h3 className="text-slate-900 text-xl font-semibold mb-5">About Us</h3>
-
 								<div className="text-slate-900">
 									<ul>
 										<li>
-											<a href="/" title="Our Mission" className="hover:underline">Our Mission</a>
+											<a href="/mission" title="Our Mission" className="hover:underline">Our Mission</a>
 										</li>
 									</ul>
 								</div>
@@ -94,7 +92,6 @@ export default function RootLayout({
 
 							<div>
 								<h3 className="text-slate-900 text-xl font-semibold mb-5">Resources</h3>
-
 								<div className="text-slate-900">
 									<ul>
 										<li>
