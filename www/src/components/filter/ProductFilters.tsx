@@ -15,8 +15,7 @@ interface FormFilterValues {
 	minPrice: number;
 	maxPrice: number;
 
-	minGrafts: number;
-	maxGrafts: number;
+	grafts: string[];
 
 	method: string[];
 }
@@ -30,8 +29,7 @@ export default function ProductFilters({
 		minPrice: 0,
 		maxPrice: 100000,
 
-		minGrafts: 1000,
-		maxGrafts: 10000,
+		grafts: ['0-1500', '1500-3000', '3000-10000'],
 
 		method: Array.from(new Set(treatments.map(t => t.method))),
 	}
@@ -44,7 +42,18 @@ export default function ProductFilters({
 		treatments = treatments.filter(t => t.price.usd_price >= filters.minPrice && t.price.usd_price <= filters.maxPrice);
 
 		// Grafts
-		treatments = treatments.filter(t => t.grafts.from > filters.minGrafts && t.grafts.to < filters.maxGrafts);
+		const allGraftRanges = filters.grafts.flatMap(graft => {
+			const [min, max] = graft.split('-');
+			return [parseInt(min), parseInt(max)];
+		}).sort((a, b) => a - b);
+		if(allGraftRanges.length) {
+			const minGrafts = allGraftRanges.shift();
+			const maxGrafts = allGraftRanges.pop();
+
+			if(minGrafts && maxGrafts) {
+				treatments = treatments.filter(t => t.grafts.from > minGrafts && t.grafts.to < maxGrafts);
+			}
+		}
 
 		return treatments;
 	}
@@ -78,6 +87,10 @@ export default function ProductFilters({
 					<form onSubmit={handleSubmit}>
 						<div className="space-y-5">
 							<div className="filter">
+								<div className="filter__title">Clinic location</div>
+							</div>
+
+							<div className="filter">
 								<div className="filter__title">Your budget</div>
 
 								<div>
@@ -95,15 +108,14 @@ export default function ProductFilters({
 							<div className="filter">
 								<div className="filter__title">Grafts</div>
 
-								<div>
-									<div className="text-sm text-gray-700 mb-1">
-										{values.minGrafts.toLocaleString('en-US')} - {values.maxGrafts.toLocaleString('en-US')}
-									</div>
-									<Slider range allowCross={false} value={[values.minGrafts, values.maxGrafts]} defaultValue={[values.minGrafts, values.maxGrafts]} min={1000} max={10000} step={200} onChange={value => {
-										const [min, max] = value as [number, number];
-										setFieldValue('minGrafts', min);
-										setFieldValue('maxGrafts', max);
-									}} />
+								<div className="space-y-2">
+									{[
+										['Low', '0-1500'],
+										['Medium', '1500-3000'],
+										['High', '3000-10000']
+									].map(([text, value]) => (
+										<Checkbox key={value} name="grafts" value={value} checked={false} htmlFor={value} label={text} />
+									))}
 								</div>
 							</div>
 

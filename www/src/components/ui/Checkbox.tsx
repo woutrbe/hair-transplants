@@ -14,8 +14,8 @@ export default function Checkbox({
 	checked: boolean;
 }) {
 	return (
-		<div className="flex items-center cursor-pointer">
-			<label className="flex items-center cursor-pointer relative" htmlFor={htmlFor}>
+		<div className="flex items-center">
+			<label className="flex items-center relative" htmlFor={htmlFor}>
 				<Field
 					type="checkbox"
 					defaultChecked={checked}
@@ -35,7 +35,7 @@ export default function Checkbox({
 					</svg>
 				</span>
 			</label>
-			{label && <label htmlFor={htmlFor} className="ml-2">{label}</label>}
+			{label && <label htmlFor={htmlFor} className="ml-2 cursor-pointer">{label}</label>}
 		</div>
 	)
 }

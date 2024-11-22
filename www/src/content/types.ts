@@ -4,7 +4,12 @@ import matter from "gray-matter";
 import { parse } from 'csv-parse/sync';
 
 export type Config = {
-	base: string;
+	navigation: [
+		{
+			link: [string, string],
+			sub: [string, string][],
+		}
+	],
 }
 
 export type Treatment = {
@@ -57,20 +62,6 @@ export type HomePage = {
 		}[];
 	}
 }
-
-export type MissionPage = {
-	content: string;
-	data: {
-		title: string;
-		description: string;
-		slug: string;
-		faq: {
-			q: string;
-			a: string;
-		}[];
-	}
-}
-
 
 const getJSONFile = async <T>(file: string): Promise<T> => {
 	const content = readFileSync(`${process.cwd()}/src/content/${file}.json`, 'utf-8');

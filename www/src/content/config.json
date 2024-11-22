@@ -1,0 +1,30 @@
+{
+  "navigation": [
+    {
+      "link": ["Exchanges"],
+      "sub": [
+        ["Binance", "/en/exchange/binance"],
+        ["Hashkey", "/en/exchange/hashkey"],
+        ["OSL", "/en/exchange/osl"]
+      ]
+    },
+    {
+      "link": ["Crypto Guide", "/en/the-best-and-cheapest-way-to-convert-hkd-into-crypto"]
+    },
+    {
+      "link": ["Bitcoin ETF", "/en/bitcoin-etf"]
+    },
+    {
+      "link": ["Crypto Wallets", "/en/crypto-wallets"]
+    },
+    {
+      "link": ["Staking", "/en/crypto-staking"]
+    },
+    {
+      "link": ["Why Crypto", "/en/why-you-should-buy-crypto"]
+    },
+    {
+      "link": ["Education", "/en/crypto-education"]
+    }
+  ]
+}
