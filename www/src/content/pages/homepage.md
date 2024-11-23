@@ -1,7 +1,7 @@
 ---
 slug: homepage
-title: Testing
-description: Testing
+title: HairCompare - We find the best clinics for your hair transplant surgery
+description: We find the best clinics for your hair transplant surgery
 
 faq:
   - q: This is just a test?

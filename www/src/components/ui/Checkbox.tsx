@@ -5,20 +5,17 @@ export default function Checkbox({
 	label,
 	name,
 	value,
-	checked = false,
 }: {
 	htmlFor: string;
 	label?: string;
 	name: string;
-	value: string,
-	checked: boolean;
+	value: string;
 }) {
 	return (
 		<div className="flex items-center">
 			<label className="flex items-center relative" htmlFor={htmlFor}>
 				<Field
 					type="checkbox"
-					defaultChecked={checked}
 					name={name}
 					className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-slate-800 checked:border-slate-800"
 					id={htmlFor}

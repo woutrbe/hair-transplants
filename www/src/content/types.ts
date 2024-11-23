@@ -24,6 +24,7 @@ export type Treatment = {
 		imagePath: string;
 		city: string;
 		country: string;
+		countryCode: string;
 		languages: string[];
 	};
 	price: {
@@ -91,6 +92,7 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 
 				city: d['City'],
 				country: d['Country'],
+				countryCode: d['Country Code'],
 
 				languages: d['Languages'].split(', ')
 			},

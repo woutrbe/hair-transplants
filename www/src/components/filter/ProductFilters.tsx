@@ -5,6 +5,9 @@ import { Formik } from "formik";
 import Slider from 'rc-slider';
 import Checkbox from "../ui/Checkbox";
 
+import { continents, getCountryData, ICountryData, TContinentCode, TCountryCode } from 'countries-list';
+import { useMemo } from "react";
+
 interface Props {
 	treatments: Treatment[];
 
@@ -18,6 +21,7 @@ interface FormFilterValues {
 	grafts: string[];
 
 	method: string[];
+	country: string[];
 }
 
 export default function ProductFilters({
@@ -32,9 +36,27 @@ export default function ProductFilters({
 		grafts: ['0-1500', '1500-3000', '3000-10000'],
 
 		method: Array.from(new Set(treatments.map(t => t.method))),
+		country: Array.from(new Set(treatments.map(t => t.clinic.countryCode))),
 	}
 
+	const countriesByContinent: {[key: string]: ICountryData[]} = useMemo(() => {
+		const uniqueCountries: TCountryCode[] = Array.from(new Set(treatments.map(t => t.clinic.countryCode as TCountryCode)));
+
+		const groupedCountries: {[key: string]: ICountryData[]} = {};
+		uniqueCountries.map(c => getCountryData(c)).forEach(country => {
+			if(!groupedCountries[country.continent]) {
+				groupedCountries[country.continent] = [];
+			}
+
+			groupedCountries[country.continent].push(country);
+		});
+
+		return groupedCountries;
+	}, [treatments])
+
 	const filterTreatments = (treatments: Treatment[], filters: FormFilterValues): Treatment[] => {
+		console.log(filters);
+
 		// Method
 		treatments = treatments.filter(t => filters.method.includes(t.method));
 
@@ -54,6 +76,9 @@ export default function ProductFilters({
 				treatments = treatments.filter(t => t.grafts.from > minGrafts && t.grafts.to < maxGrafts);
 			}
 		}
+
+		// Countries
+		treatments = treatments.filter(t => filters.country.includes(t.clinic.countryCode));
 
 		return treatments;
 	}
@@ -88,6 +113,26 @@ export default function ProductFilters({
 						<div className="space-y-5">
 							<div className="filter">
 								<div className="filter__title">Clinic location</div>
+
+								{Object.keys(countriesByContinent).map(continent => {
+									const countries = countriesByContinent[continent];
+
+									return (
+										<div key={continent} className="mb-2">
+											<div className="font-semibold">{continents[continent as TContinentCode]}</div>
+
+											<div className="space-y-1">
+												{countries.map(country => {
+													return (
+														<div key={country.iso2}>
+															<Checkbox key={country.iso2} name="country" value={country.iso2} htmlFor={country.iso2} label={country.name} />
+														</div>
+													)
+												})}
+											</div>
+										</div>
+									)
+								})}
 							</div>
 
 							<div className="filter">
@@ -114,7 +159,7 @@ export default function ProductFilters({
 										['Medium', '1500-3000'],
 										['High', '3000-10000']
 									].map(([text, value]) => (
-										<Checkbox key={value} name="grafts" value={value} checked={false} htmlFor={value} label={text} />
+										<Checkbox key={value} name="grafts" value={value} htmlFor={value} label={text} />
 									))}
 								</div>
 							</div>
@@ -124,7 +169,7 @@ export default function ProductFilters({
 
 								<div className="space-y-2">
 									{Array.from(new Set(treatments.map(t => t.method))).map(option => (
-										<Checkbox key={option} name="method" value={option} checked={false} htmlFor={option} label={option} />
+										<Checkbox key={option} name="method" value={option} htmlFor={option} label={option} />
 									))}
 								</div>
 							</div>
