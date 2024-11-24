@@ -18,7 +18,7 @@ export default async function TreatmentOptions() {
 			<section className="mb-20">
 				<h2 className="text-3xl font-bold mb-6">What is a Hair Transplant?</h2>
 				<p className="text-xl text-gray-600 mb-8">
-					A hair transplant is a medical procedure that moves healthy hair from one part of your scalp (the donor area) to areas where you have thinning or no hair (the recipient area). It's a permanent solution to hair loss.
+					A hair transplant is a medical procedure that moves healthy hair from one part of your scalp (the donor area) to areas where you have thinning or no hair (the recipient area). It&apos;s a permanent solution to hair loss.
 					There are three main types of hair transplant techniques:
 				</p>
 				<div className="grid md:grid-cols-3 gap-8">
@@ -40,7 +40,6 @@ export default async function TreatmentOptions() {
 						}
 					].map((item, index) => (
 						<div key={index} className="bg-white rounded-lg shadow-md p-6">
-							{item.icon}
 							<h3 className="text-xl font-semibold mt-4 mb-2">{item.title}</h3>
 							<p className="text-gray-600">{item.description}</p>
 						</div>
@@ -48,7 +47,7 @@ export default async function TreatmentOptions() {
 				</div>
 			</section>
 			<section>
-				<h3 className="text-3xl mb-6 font-bold text-center">Let's break them down to help you choose the best option.</h3>
+				<h3 className="text-3xl mb-6 font-bold text-center">Let&apos;s break them down to help you choose the best option.</h3>
 				<div className="overflow-x-auto mb-8">
 					<table className="min-w-full bg-white rounded-lg shadow-sm">
 						<thead className="bg-gray-50">
@@ -95,7 +94,7 @@ export default async function TreatmentOptions() {
 
 				<h3 className="text-xl font-semibold text-gray-900 mb-3">What you need to know:</h3>
 				<ul className="list-disc pl-6 mb-6 text-gray-700">
-					<li>Done under local anesthesia (you're awake but won't feel pain).</li>
+					<li>Done under local anesthesia (you&apos;re awake but won&apos;t feel pain).</li>
 					<li>Scars are very small, like tiny dots, and usually not visible.</li>
 				</ul>
 
@@ -133,7 +132,7 @@ export default async function TreatmentOptions() {
 
 				<ul className="list-disc pl-6 mb-6 text-gray-700">
 					<li>Suitable for smaller transplants (mild to medium hair loss).</li>
-					<li>Ideal if you don't want your hair styling affected.</li>
+					<li>Ideal if you don&apos;t want your hair styling affected.</li>
 				</ul>
 
 				<div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -209,7 +208,6 @@ export default async function TreatmentOptions() {
 						}
 					].map((item, index) => (
 						<div key={index} className="bg-white rounded-lg shadow-md p-6">
-							{item.icon}
 							<h3 className="text-xl font-semibold mt-4 mb-2">{item.title}</h3>
 							<p className="text-gray-600">{item.description}</p>
 						</div>
