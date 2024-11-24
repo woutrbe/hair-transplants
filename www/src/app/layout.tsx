@@ -2,6 +2,7 @@ import EmailSignupForm from "../components/EmailSignupForm";
 import { getConfig } from "../content/types";
 import "./globals.css";
 import Banner from "@/components/Banner";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export default async function RootLayout({
 	children,
@@ -115,6 +116,8 @@ export default async function RootLayout({
 						</div>
 					</div>
 				</footer>
+
+				{process.env.NODE_ENV !== 'development' && <GoogleAnalytics gaId="G-7KT8LD1V20" />}
 			</body>
 		</html>
 	);
