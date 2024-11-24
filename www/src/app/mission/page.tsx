@@ -113,6 +113,7 @@ export default async function Why() {
 					</a>
 				</div>
 			</section>
+			
 		</div>
 	);
 }

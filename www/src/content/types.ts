@@ -48,6 +48,10 @@ export type Page = {
 		title: string;
 		description: string;
 		slug: string;
+		faq: {
+			q: string;
+			a: string;
+		}[];
 	}
 }
 

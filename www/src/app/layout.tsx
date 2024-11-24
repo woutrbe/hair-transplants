@@ -1,6 +1,7 @@
 import EmailSignupForm from "../components/EmailSignupForm";
 import { getConfig } from "../content/types";
 import "./globals.css";
+import Banner from "@/components/Banner";
 
 export default async function RootLayout({
 	children,
@@ -27,7 +28,6 @@ export default async function RootLayout({
 								<nav className="flex space-x-4">
 									{config.navigation.map(({ link, sub }) => {
 										const [title, url] = link;
-
 										return (
 											<div key={url} className="flex items-center group relative">
 												{url && <a className="hover:underline" href={url} title={title}>{title}</a>}
@@ -54,37 +54,7 @@ export default async function RootLayout({
 								</nav>
 							</div>
 						</div>
-
-						<div className="flex flex-col md:flex-row items-center justify-between mt-10 py-10 lg:py-0">
-							<div className="lg:w-2/4 mb-8 md:mb-0">
-								<h1 className="text-4xl md:text-5xl leading-xl font-bold text-gray-800 mb-4">
-									We find the best clinics for your hair transplant surgery
-								</h1>
-
-								<p className="text-gray-600 mb-6">
-									Expert doctors ready to help you achieve the hair you&apos;ve always wanted.
-								</p>
-
-								<a href="/" className="bg-purple-600 hover:bg-purple-700 text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
-									Search all clinics
-									<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-									</svg>
-								</a>
-
-
-								<a href="/mission" className="bg-purple-600 hover:bg-purple-700 text-white rounded-lg px-5 py-3 inline-flex items-center gap-2 ml-4">
-									Read about our mission
-									<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-									</svg>
-								</a>
-							</div>
-
-							<div className="w-1/2 hidden lg:flex justify-end">
-								<img src="/header-right.png" alt="" title="" />
-							</div>
-						</div>
+						<Banner></Banner>
 					</div>
 				</header>
 
