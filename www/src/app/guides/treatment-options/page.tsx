@@ -1,16 +1,13 @@
-import { InfoIcon as Transparency, Users, TrendingUp, CheckCircle, Globe } from 'lucide-react'
 import { Metadata } from "next";
-import { getPage } from "../../../content/types";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const why = await getPage('treatment-options');
 
 	return {
-		title: why.data.title,
-		description: why.data.description,
+		title: 'Treatment Options',
+		description: 'Treatment Options',
 
 		alternates: {
-			canonical: `${process.env.URL}/${why.data.slug}`,
+			canonical: `${process.env.URL}/guides/treatment-options`,
 		}
 	}
 }
@@ -85,7 +82,7 @@ export default async function TreatmentOptions() {
 					</table>
 				</div>
 			</section>
-			
+
 			<hr></hr>
 
 			<section>

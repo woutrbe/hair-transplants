@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import { getPage, getTreatments, HomePage } from "../content/types";
+import { getHomepage, getTreatments } from "../content/types";
 import ProductFilterWrapper from "../components/filter/ProductFilterWrapper";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const homepage = await getPage('homepage');
+	const homepage = await getHomepage();
 
 	return {
 		title: homepage.data.title,
@@ -17,13 +17,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
 	const treatments = await getTreatments();
-	const homepage = await getPage('homepage') as HomePage;
+	const homepage = await getHomepage();
 
 	return (
 		<>
 			<div>
 				<ProductFilterWrapper treatments={treatments} />
 			</div>
+
 			<div className="max-w-3xl mx-auto mb-10">
 				<div className="text-center mb-2">
 					<div className="text-2xl font-medium  mb-2">Frequently asked questions</div>

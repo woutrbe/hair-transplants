@@ -55,19 +55,6 @@ export type Page = {
 	}
 }
 
-export type HomePage = {
-	content: string;
-	data: {
-		title: string;
-		description: string;
-		slug: string;
-		faq: {
-			q: string;
-			a: string;
-		}[];
-	}
-}
-
 const getJSONFile = async <T>(file: string): Promise<T> => {
 	const content = readFileSync(`${process.cwd()}/src/content/${file}.json`, 'utf-8');
 	return JSON.parse(content) as T;
@@ -138,4 +125,8 @@ export const getPage = async (slug: string): Promise<Page> => {
 	if(!page) throw new Error(`Page ${slug} not found.`);
 
 	return page;
+};
+export const getHomepage = async (): Promise<Page> => {
+	const content = readFileSync(`${process.cwd()}/src/content/homepage.md`, 'utf-8');
+	return matter(content) as unknown as Page;
 };

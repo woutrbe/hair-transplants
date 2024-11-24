@@ -18,6 +18,8 @@
     "formik": "^2.4.6",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.460.0",
+    "marked": "^15.0.2",
+    "marked-gfm-heading-id": "^4.1.1",
     "next": "14.2.13",
     "rc-slider": "^11.1.7",
     "react": "^18",

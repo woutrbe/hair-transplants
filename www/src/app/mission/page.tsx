@@ -1,16 +1,13 @@
 import { InfoIcon as Transparency, Users, TrendingUp, CheckCircle, Globe } from 'lucide-react'
 import { Metadata } from "next";
-import { getPage } from "../../content/types";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const why = await getPage('mission');
-
 	return {
-		title: why.data.title,
-		description: why.data.description,
+		title: 'Our mission',
+		description: 'Our mission',
 
 		alternates: {
-			canonical: `${process.env.URL}/${why.data.slug}`,
+			canonical: `${process.env.URL}/mission`,
 		}
 	}
 }
@@ -113,7 +110,7 @@ export default async function Why() {
 					</a>
 				</div>
 			</section>
-			
+
 		</div>
 	);
 }
