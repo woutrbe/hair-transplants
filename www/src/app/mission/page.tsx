@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 	}
 }
 
-export default async function Why() {
+export default async function MissionPage() {
 	return (
 		<div>
 			<section className="mb-20">

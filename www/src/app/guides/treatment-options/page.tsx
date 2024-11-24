@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 	}
 }
 
-export default async function TreatmentOptions() {
+export default async function TreatmentOptionsPage() {
 	return (
 		<article>
 			<section className="mb-20">
