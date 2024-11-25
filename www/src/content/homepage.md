@@ -1,6 +1,6 @@
 ---
 slug: homepage
-title: HairCompare - We find the best clinics for your hair transplant surgery
+title: HairClinicFinder - We find the best clinics for your hair transplant surgery
 description: We find the best clinics for your hair transplant surgery
 
 faq:

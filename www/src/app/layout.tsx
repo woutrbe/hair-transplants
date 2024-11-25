@@ -22,7 +22,7 @@ export default async function RootLayout({
 							<div>
 								<h1>
 									<a href="/" title="Hair compare" className="text-2xl text-black">
-										HairCompare.
+										HairClinicFinder.
 									</a>
 								</h1>
 							</div>
@@ -117,7 +117,7 @@ export default async function RootLayout({
 							<div>
 								<h1 className="mb-3">
 									<a href="/" title="Hair compare" className="text-2xl text-black">
-										HairCompare.
+										HairClinicFinder.
 									</a>
 								</h1>
 								<div className="text-slate-900">Helping you find the best hair transplant clinics worldwide.</div>

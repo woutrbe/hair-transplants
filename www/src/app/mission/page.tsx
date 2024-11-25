@@ -18,7 +18,7 @@ export default async function MissionPage() {
 			<section className="mb-20">
 				<h2 className="text-3xl font-bold mb-6">Our Mission</h2>
 				<p className="text-xl text-gray-600 mb-8">
-					At HairCompare, we&apos;re on a mission to revolutionize the hair transplant industry. We believe in creating a world where individuals can make informed decisions about their hair restoration journey with confidence and ease.
+					At HairClinicFinder, we&apos;re on a mission to revolutionize the hair transplant industry. We believe in creating a world where individuals can make informed decisions about their hair restoration journey with confidence and ease.
 				</p>
 				<div className="grid md:grid-cols-3 gap-8">
 					{[
@@ -48,7 +48,7 @@ export default async function MissionPage() {
 			</section>
 
 			<section className="mb-20">
-				<h2 className="text-3xl font-bold mb-6">Why Choose HairCompare?</h2>
+				<h2 className="text-3xl font-bold mb-6">Why Choose HairClinicFinder?</h2>
 				<div className="grid md:grid-cols-2 gap-8">
 					{[
 						"Comprehensive clinic listings and reviews",
@@ -71,7 +71,7 @@ export default async function MissionPage() {
 				<div className="flex items-center mb-8">
 					<Globe className="h-16 w-16 text-purple-600 mr-6" />
 					<p className="text-xl text-gray-600">
-						HairCompare is proud to be the first international website dedicated to providing comprehensive information about hair transplants. Our global perspective allows us to offer unparalleled insights and comparisons across borders.
+						HairClinicFinder is proud to be the first international website dedicated to providing comprehensive information about hair transplants. Our global perspective allows us to offer unparalleled insights and comparisons across borders.
 					</p>
 				</div>
 				<div className="bg-purple-50 rounded-lg p-6">

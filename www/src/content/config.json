@@ -1,7 +1,7 @@
 {
   "navigation": [
     {
-      "link": ["Treatment Guide", "guides/treatment-options"]
+      "link": ["Treatment Guide", "treatment-options"]
     },
     {
       "link": ["Our Mission", "mission"]
