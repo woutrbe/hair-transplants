@@ -4,14 +4,19 @@ title: Our story
 description: Testing
 
 faq:
-  - q: This is just a test?
-    a: Yep, just a test
-  - q: This is just a test?
-    a: Yep, just a test
-  - q: This is just a test?
-    a: Yep, just a test
-  - q: This is just a test?
-    a: Yep, just a test
+  - q: Why are you getting a hair transplant?
+    a: I’ve been experiencing hair loss, and I want a long-term solution. After researching other options, I feel this is the most effective way to restore my hairline. Now that the cost are not that high anymore as a few years ago, I am actually considering it.
+  - q: How does a hair transplant work?
+    a: It involves taking healthy hair follicles from a donor area (usually the back of the head) and implanting them into thinning or balding areas. The transplanted follicles grow like normal hair.
+  - q:  Is it safe?
+    a: Yes, as long as it’s done by a qualified and experienced surgeon. It’s a minimally invasive procedure with low risk of complications if proper care is taken
+  - q: Does it hurt?
+    a: From what I’ve read, the procedure itself isn’t painful because of local anesthesia. From what I understood, there might be some discomfort during the injections and mild soreness afterward.
+  - q: Are you worried it won’t work?
+    a: Not really. I’ve consulted with the surgeon, and they’ve assessed that I’m a good candidate. 
+  - q: Will you need another transplant in the future?
+    a: It depends on how my natural hair progresses. The transplanted hair is permanent, but I might need treatments like Finasteride or Minoxidil to maintain the rest of my hair. Worst case, I will go back in a few years.
+
 ---
 ## Thinking About a Hair Transplant? My Experience with the First Check-In
 It all started when I was on a video call with my brother. We were just catching up, but I couldn’t help noticing how thick and full his hairline looked. A few years ago, he had mentioned getting a hair transplant, but I hadn’t really paid much attention. Now, seeing his hair next to my thinning hairline, the difference was hard to ignore. His hair looked incredible—thick, natural, and definitely better than mine. It got me wondering if I should consider doing something about my own hair.
