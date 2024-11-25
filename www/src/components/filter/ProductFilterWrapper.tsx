@@ -55,15 +55,15 @@ export default function ProductFilterWrapper({
 	}
 
 	return (
-		<div className="flex space-x-10">
-			<div className="w-4/12">
+		<div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:space-x-10">
+			<div className="md:w-4/12">
 				<div className="border border-gray-300 rounded p-5">
 					<ProductFilters treatments={treatments} onSubmit={onSubmit} />
 				</div>
 			</div>
 
-			<div className="w-8/12">
-				<div className="flex justify-between items-center border-b border-gray-300 pb-2 pt-2 mb-5">
+			<div className="md:w-8/12">
+				<div className="flex space-y-4 md:space-y-0 flex-col md:flex-row md:justify-between md:items-center border-b border-gray-300 pb-2 pt-2 mb-5">
 					<div>
 						<Select onValueChange={onSortingChange} defaultValue={sortBy}>
 							<SelectTrigger>

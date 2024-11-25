@@ -27,7 +27,7 @@ export default async function MarkdownPage({
 	return (
 		<div className="py-8">
 			<div className="md:flex gap-5 relative">
-				{filteredHeadings.length > 0 && <div className="mb-5 md:mb-0 md:w-1/4 md:sticky top-4 self-start">
+				{filteredHeadings.length > 0 && <div className="hidden md:block mb-5 md:mb-0 md:w-1/4 md:sticky top-4 self-start">
 					<div className="uppercase font-bold mb-2">Table of contents</div>
 					<ol>
 						{filteredHeadings.map((h, i) => {
