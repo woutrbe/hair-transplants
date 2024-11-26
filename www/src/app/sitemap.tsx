@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		'',
 		...pages.map(p => p.data.slug),
 		'mission',
-		'guides/treatment-options'
+		'treatment-options'
 	].map(slug => ({
 		url: `${process.env.URL}/${slug}`
 	}))

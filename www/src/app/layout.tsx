@@ -3,8 +3,8 @@ import EmailSignupForm from "../components/EmailSignupForm";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 import { getConfig } from "../content/types";
 import "./globals.css";
-import Banner from "@/components/Banner";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import Banner from "@/components/Banner";
 
 export default async function RootLayout({
 	children,
@@ -105,10 +105,8 @@ export default async function RootLayout({
 					</div>
 				</header>
 
-				<main>
-					<div className="container mx-auto px-4 py-10">
-						{children}
-					</div>
+				<main id="main-content" className="container mx-auto px-4 py-10">
+					{children}
 				</main>
 
 				<footer className="bg-[#e6f3f3]">

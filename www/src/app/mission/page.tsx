@@ -1,5 +1,6 @@
 import { InfoIcon as Transparency, Users, TrendingUp, CheckCircle, Globe } from 'lucide-react'
 import { Metadata } from "next";
+import Banner from '@/components/Banner';
 
 export async function generateMetadata(): Promise<Metadata> {
 	return {
