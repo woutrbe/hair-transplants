@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function Banner() {
     return (
-        <div className="flex flex-col md:flex-row items-center justify-between py-2">
+        <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="lg:w-2/4 mb-8 md:mb-0">
                 <h1 className="text-4xl md:text-5xl leading-xl font-bold text-gray-800 mb-4">
                     We help you find the best clinics for your hair transplant surgery

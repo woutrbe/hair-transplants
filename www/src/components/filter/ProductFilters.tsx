@@ -175,7 +175,7 @@ export default function ProductFilters({
 							</div>
 
 							<div>
-								<button className="w-full bg-blue-500 hover:bg-blue-700 text-white rounded-md px-5 py-3" type="submit">Find your clinic</button>
+								<button className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-md px-5 py-3" type="submit">Find your clinic</button>
 							</div>
 						</div>
 					</form>

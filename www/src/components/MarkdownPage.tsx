@@ -25,33 +25,31 @@ export default async function MarkdownPage({
 	}));
 
 	return (
-		<div className="py-8">
-			<div className="md:flex gap-5 relative">
-				{filteredHeadings.length > 0 && <div className="hidden md:block mb-5 md:mb-0 md:w-1/4 md:sticky top-4 self-start">
-					<div className="uppercase font-bold mb-2">Table of contents</div>
-					<ol>
-						{filteredHeadings.map((h, i) => {
-							return (
-								<li key={h.anchor}>
-									<Link
-										href={`#${h.anchor}`}
-										title={h.text}
-										className="text-gray-600 hover:text-black font-semibold"
-									>{i + 1}. {h.text}</Link>
-								</li>
-							)
-						})}
-					</ol>
-				</div>}
-				<div className="md:w-3/4 mx-auto">
-					<h2 className="text-3xl font-bold mb-5">{title}</h2>
-					<div
-						className="page__content"
-						dangerouslySetInnerHTML={{
-							__html: parsedContent,
-						}}
-					/>
-				</div>
+		<div className="md:flex gap-5 relative">
+			{filteredHeadings.length > 0 && <div className="hidden md:block mb-5 md:mb-0 md:w-1/4 md:sticky top-4 self-start">
+				<div className="uppercase font-bold mb-2">Table of contents</div>
+				<ol>
+					{filteredHeadings.map((h, i) => {
+						return (
+							<li key={h.anchor}>
+								<Link
+									href={`#${h.anchor}`}
+									title={h.text}
+									className="text-gray-600 hover:text-black font-semibold"
+								>{i + 1}. {h.text}</Link>
+							</li>
+						)
+					})}
+				</ol>
+			</div>}
+			<div className="md:w-3/4 mx-auto">
+				<h2 className="text-3xl font-bold mb-5">{title}</h2>
+				<div
+					className="page__content"
+					dangerouslySetInnerHTML={{
+						__html: parsedContent,
+					}}
+				/>
 			</div>
 		</div>
 	)
