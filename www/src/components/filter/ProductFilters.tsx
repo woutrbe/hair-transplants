@@ -1,7 +1,7 @@
 'use client';
 
 import { Treatment } from "../../content/types"
-import { Formik, Field } from "formik";
+import { Formik, Field, useFormikContext } from "formik";
 import Slider from 'rc-slider';
 import Checkbox from "../ui/Checkbox";
 
@@ -77,10 +77,6 @@ export default function ProductFilters({
 
 		return treatments;
 	}
-
-	useEffect(() => {
-		onSubmit(filterTreatments(treatments, initialValues));
-	}, []);
 
 	return (
 		<Formik
@@ -228,9 +224,21 @@ export default function ProductFilters({
 								<button className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-md px-5 py-3" type="submit">Find your clinic</button>
 							</div>
 						</div>
+
+						<AutoSubmitForm />
 					</form>
 				</div>
 			)}
 		</Formik>
 	)
 };
+
+function AutoSubmitForm() {
+	const { values, submitForm } = useFormikContext();
+
+	useEffect(() => {
+		submitForm();
+	}, [values, submitForm]);
+
+	return null;
+}
