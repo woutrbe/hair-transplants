@@ -6,7 +6,7 @@ import Slider from 'rc-slider';
 import Checkbox from "../ui/Checkbox";
 
 import { continents, getCountryData, ICountryData, TContinentCode, TCountryCode } from 'countries-list';
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 interface Props {
 	treatments: Treatment[];
@@ -18,8 +18,8 @@ interface FormFilterValues {
 	minPrice: number;
 	maxPrice: number;
 
-	package_size: string[];
-	rating: string[];
+	package_size: string;
+	rating: string;
 
 	method: string[];
 	country: string[];
@@ -34,8 +34,8 @@ export default function ProductFilters({
 		minPrice: 2500,
 		maxPrice: 15000,
 
-		package_size: ['XL'],
-		rating: ['0-5'],
+		package_size: 'M',
+		rating: '0-5',
 
 		method: ['FUE'],
 		country: Array.from(new Set(treatments.map(t => t.clinic.countryCode))),
@@ -67,17 +67,9 @@ export default function ProductFilters({
 		treatments = treatments.filter(t => filters.package_size.includes(t.package_size));
 
 		// Rating
-		const allRatingRanges = filters.rating.flatMap(rating => {
-			const [min, max] = rating.split('-');
-			return [parseFloat(min), parseFloat(max)];
-		})
-		if (allRatingRanges.length) {
-			const minRating = allRatingRanges.shift();
-			const maxRating = allRatingRanges.pop();
-
-			if (minRating && maxRating) {
-				treatments = treatments.filter(t => t.review.score > minRating && t.review.score < maxRating);
-			}
+		const [minRating, maxRating] = filters.rating.split('-');
+		if (minRating && maxRating) {
+			treatments = treatments.filter(t => t.review.score > parseFloat(minRating) && t.review.score < parseFloat(maxRating));
 		}
 
 		// Countries
@@ -85,6 +77,10 @@ export default function ProductFilters({
 
 		return treatments;
 	}
+
+	useEffect(() => {
+		onSubmit(filterTreatments(treatments, initialValues));
+	}, []);
 
 	return (
 		<Formik
@@ -133,7 +129,7 @@ export default function ProductFilters({
 												htmlFor={value}
 											>
 												<Field
-													type="checkbox"
+													type="radio"
 													name="package_size"
 													id={value}
 													value={value}
@@ -181,7 +177,7 @@ export default function ProductFilters({
 												htmlFor={value}
 											>
 												<Field
-													type="checkbox"
+													type="radio"
 													name="rating"
 													id={value}
 													value={value}

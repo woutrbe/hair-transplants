@@ -21,7 +21,7 @@ export default async function Home() {
 
 	return (
 		<>
-			<div>
+			<div className="mb-20">
 				<ProductFilterWrapper treatments={treatments} />
 			</div>
 
