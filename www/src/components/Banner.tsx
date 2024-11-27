@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 export default function Banner() {
     return (
         <div className="flex flex-col md:flex-row items-center justify-between">
@@ -13,19 +11,19 @@ export default function Banner() {
                 </p>
 
                 <div className="space-y-4 md:space-x-4">
-                    <Link href="/#main-content" className="bg-purple-600 hover:bg-purple-700 text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
+                    <a href="/#main-content" className="bg-purple-600 hover:bg-purple-700 text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
                         Search all clinics
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
-                    </Link>
+                    </a>
 
-					<Link href="https://docs.google.com/forms/d/e/1FAIpQLSd44D58KMvVrYt55TUOkNREN7cvLPyEDPDbsm8V0HNjiFLgbQ/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
+					<a href="https://docs.google.com/forms/d/e/1FAIpQLSd44D58KMvVrYt55TUOkNREN7cvLPyEDPDbsm8V0HNjiFLgbQ/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
                         Add a clinic
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
-                    </Link>
+                    </a>
                 </div>
             </div>
 

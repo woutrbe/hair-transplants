@@ -18,6 +18,7 @@ export type Treatment = {
 		from: number;
 		to: number;
 	};
+	package_size: string;
 	clinic: {
 		name: string;
 		url: string;
@@ -75,6 +76,7 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 				from: parseFloat(minGrafts),
 				to: parseFloat(maxGrafts ?? d['Grafts']),
 			},
+			package_size: d['Package_size'],
 
 			clinic: {
 				name: d['ClinicName'],

@@ -1,7 +1,7 @@
 'use client';
 
 import { Treatment } from "../../content/types"
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import Slider from 'rc-slider';
 import Checkbox from "../ui/Checkbox";
 
@@ -18,7 +18,8 @@ interface FormFilterValues {
 	minPrice: number;
 	maxPrice: number;
 
-	grafts: string[];
+	package_size: string[];
+	rating: string[];
 
 	method: string[];
 	country: string[];
@@ -30,21 +31,22 @@ export default function ProductFilters({
 	onSubmit
 }: Props) {
 	const initialValues: FormFilterValues = {
-		minPrice: 0,
-		maxPrice: 100000,
+		minPrice: 2500,
+		maxPrice: 15000,
 
-		grafts: ['0-1500', '1500-3000', '3000-10000'],
+		package_size: ['XL'],
+		rating: ['0-5'],
 
-		method: Array.from(new Set(treatments.map(t => t.method))),
+		method: ['FUE'],
 		country: Array.from(new Set(treatments.map(t => t.clinic.countryCode))),
 	}
 
-	const countriesByContinent: {[key: string]: ICountryData[]} = useMemo(() => {
+	const countriesByContinent: { [key: string]: ICountryData[] } = useMemo(() => {
 		const uniqueCountries: TCountryCode[] = Array.from(new Set(treatments.map(t => t.clinic.countryCode as TCountryCode)));
 
-		const groupedCountries: {[key: string]: ICountryData[]} = {};
+		const groupedCountries: { [key: string]: ICountryData[] } = {};
 		uniqueCountries.map(c => getCountryData(c)).forEach(country => {
-			if(!groupedCountries[country.continent]) {
+			if (!groupedCountries[country.continent]) {
 				groupedCountries[country.continent] = [];
 			}
 
@@ -55,25 +57,26 @@ export default function ProductFilters({
 	}, [treatments])
 
 	const filterTreatments = (treatments: Treatment[], filters: FormFilterValues): Treatment[] => {
-		console.log(filters);
-
 		// Method
 		treatments = treatments.filter(t => filters.method.includes(t.method));
 
 		// Price
 		treatments = treatments.filter(t => t.price.usd_price >= filters.minPrice && t.price.usd_price <= filters.maxPrice);
 
-		// Grafts
-		const allGraftRanges = filters.grafts.flatMap(graft => {
-			const [min, max] = graft.split('-');
-			return [parseInt(min), parseInt(max)];
-		}).sort((a, b) => a - b);
-		if(allGraftRanges.length) {
-			const minGrafts = allGraftRanges.shift();
-			const maxGrafts = allGraftRanges.pop();
+		// Package size
+		treatments = treatments.filter(t => filters.package_size.includes(t.package_size));
 
-			if(minGrafts && maxGrafts) {
-				treatments = treatments.filter(t => t.grafts.from > minGrafts && t.grafts.to < maxGrafts);
+		// Rating
+		const allRatingRanges = filters.rating.flatMap(rating => {
+			const [min, max] = rating.split('-');
+			return [parseFloat(min), parseFloat(max)];
+		})
+		if (allRatingRanges.length) {
+			const minRating = allRatingRanges.shift();
+			const maxRating = allRatingRanges.pop();
+
+			if (minRating && maxRating) {
+				treatments = treatments.filter(t => t.review.score > minRating && t.review.score < maxRating);
 			}
 		}
 
@@ -112,6 +115,86 @@ export default function ProductFilters({
 					<form onSubmit={handleSubmit}>
 						<div className="space-y-5">
 							<div className="filter">
+								<div className="filter__title">Transplantation size</div>
+
+								<div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+									{[
+										['XS', 'XS', '1500'],
+										['S', 'Small', '2000'],
+										['M', 'Medium', '2500'],
+										['L', 'Large', '3000'],
+										['XL', 'XL', '4000'],
+										['XXL', 'XXL', '5000'],
+									].map(([value, text, follicles]) => {
+										return (
+											<label
+												key={value}
+												className="border border-gray-300 rounded relative flex flex-col items-center justify-center p-4 rounded-lg transition-all cursor-pointer has-[:checked]:border-gray-600 has-[:checked]:bg-gray-100"
+												htmlFor={value}
+											>
+												<Field
+													type="checkbox"
+													name="package_size"
+													id={value}
+													value={value}
+													className="hidden peer"
+												/>
+												<div className="font-bold text-lg">{text}</div>
+												<div className="text-gray-300 font-sm">{follicles}</div>
+												<div className="text-gray-300 font-sm">follicles</div>
+											</label>
+										)
+									})}
+								</div>
+							</div>
+
+							<div className="filter">
+								<div className="filter__title">Your budget</div>
+
+								<div>
+									<div className="text-sm text-gray-700 mb-1">
+										US$ {values.minPrice.toLocaleString('en-US')} - US$ {values.maxPrice.toLocaleString('en-US')}
+									</div>
+									<Slider range allowCross={false} value={[values.minPrice, values.maxPrice]} defaultValue={[values.minPrice, values.maxPrice]} min={2500} max={15000} step={500} onChange={value => {
+										const [min, max] = value as [number, number];
+										setFieldValue('minPrice', min);
+										setFieldValue('maxPrice', max);
+									}} />
+								</div>
+							</div>
+
+							<div className="filter">
+								<div className="filter__title">Rating</div>
+
+								<div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+									{[
+										['0-5', 'ALL'],
+										['3-5', '3+'],
+										['4-5', '4+'],
+										['4.5-5', '4.5+'],
+										['4.85-5', '4.85+'],
+									].map(([value, text]) => {
+										return (
+											<label
+												key={value}
+												className="border border-gray-300 rounded relative flex flex-col items-center justify-center p-4 rounded-lg transition-all cursor-pointer has-[:checked]:border-gray-600 has-[:checked]:bg-gray-100"
+												htmlFor={value}
+											>
+												<Field
+													type="checkbox"
+													name="rating"
+													id={value}
+													value={value}
+													className="hidden peer"
+												/>
+												<div className="font-bold text-lg">{text}</div>
+											</label>
+										)
+									})}
+								</div>
+							</div>
+
+							<div className="filter">
 								<div className="filter__title">Clinic location</div>
 
 								{Object.keys(countriesByContinent).map(continent => {
@@ -133,35 +216,6 @@ export default function ProductFilters({
 										</div>
 									)
 								})}
-							</div>
-
-							<div className="filter">
-								<div className="filter__title">Your budget</div>
-
-								<div>
-									<div className="text-sm text-gray-700 mb-1">
-										US$ {values.minPrice.toLocaleString('en-US')} - US$ {values.maxPrice.toLocaleString('en-US')}
-									</div>
-									<Slider range allowCross={false} value={[values.minPrice, values.maxPrice]} defaultValue={[values.minPrice, values.maxPrice]} min={0} max={100000} step={1000} onChange={value => {
-										const [min, max] = value as [number, number];
-										setFieldValue('minPrice', min);
-										setFieldValue('maxPrice', max);
-									}} />
-								</div>
-							</div>
-
-							<div className="filter">
-								<div className="filter__title">Grafts</div>
-
-								<div className="space-y-2">
-									{[
-										['Low', '0-1500'],
-										['Medium', '1500-3000'],
-										['High', '3000-10000']
-									].map(([text, value]) => (
-										<Checkbox key={value} name="grafts" value={value} htmlFor={value} label={text} />
-									))}
-								</div>
 							</div>
 
 							<div className="filter">

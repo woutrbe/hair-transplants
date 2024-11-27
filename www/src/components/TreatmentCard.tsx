@@ -1,7 +1,6 @@
 import { Star, MapPin, Globe, ChevronRight } from 'lucide-react'
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
-import Link from "next/link"
 import { Treatment } from "../content/types";
 
 export default function TreatmentCard({
@@ -94,10 +93,10 @@ export default function TreatmentCard({
 					</div>
 				</div>
 
-				<Link href={treatment.clinic.url} target="blank" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
+				<a href={treatment.clinic.url} target="blank" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
 					Book Consultation
 					<ChevronRight className="w-4 h-4" />
-                </Link>
+                </a>
 			</div>
 		</div>
 	)

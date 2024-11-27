@@ -7,7 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
 		description: 'Treatment Options',
 
 		alternates: {
-			canonical: `${process.env.URL}/guides/treatment-options`,
+			canonical: `${process.env.URL}/treatment-options`,
 		}
 	}
 }
