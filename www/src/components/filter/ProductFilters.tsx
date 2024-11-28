@@ -69,7 +69,7 @@ export default function ProductFilters({
 		// Rating
 		const [minRating, maxRating] = filters.rating.split('-');
 		if (minRating && maxRating) {
-			treatments = treatments.filter(t => t.review.score > parseFloat(minRating) && t.review.score < parseFloat(maxRating));
+			treatments = treatments.filter(t => t.review.score >= parseFloat(minRating) && t.review.score <= parseFloat(maxRating));
 		}
 
 		// Countries
