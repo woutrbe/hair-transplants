@@ -137,6 +137,9 @@ export default async function RootLayout({
 										<li>
 											<a href="/mission" title="Our Mission" className="hover:underline">Our Mission</a>
 										</li>
+										<li>
+											<a href="/story" title="Our Story" className="hover:underline">Our Story</a>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -146,13 +149,10 @@ export default async function RootLayout({
 								<div className="text-slate-900">
 									<ul>
 										<li>
-											<a href="/" title="Hair Loss Guide" className="hover:underline">Hair Loss Guide</a>
+											<a href="/treatment-options" title="Treatment Guide" className="hover:underline">Treatment Guide</a>
 										</li>
 										<li>
-											<a href="/" title="Treatment Options" className="hover:underline">Treatment Options</a>
-										</li>
-										<li>
-											<a href="/" title="Hair Loss Guide" className="hover:underline">Hair Loss Guide</a>
+											<a href="https://docs.google.com/forms/d/e/1FAIpQLSd44D58KMvVrYt55TUOkNREN7cvLPyEDPDbsm8V0HNjiFLgbQ/viewform?usp=send_form" target="_blank" rel="nofollow" title="Add your Clinic" className="hover:underline">Add your Clinic</a>
 										</li>
 									</ul>
 								</div>

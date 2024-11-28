@@ -7,6 +7,7 @@ import Checkbox from "../ui/Checkbox";
 
 import { continents, getCountryData, ICountryData, TContinentCode, TCountryCode } from 'countries-list';
 import { useEffect, useMemo } from "react";
+import StarRating from "../StarRating";
 
 interface Props {
 	treatments: Treatment[];
@@ -31,7 +32,7 @@ export default function ProductFilters({
 	onSubmit
 }: Props) {
 	const initialValues: FormFilterValues = {
-		minPrice: 2500,
+		minPrice: 2000,
 		maxPrice: 15000,
 
 		package_size: 'M',
@@ -147,7 +148,7 @@ export default function ProductFilters({
 									<div className="text-sm text-gray-700 mb-1">
 										US$ {values.minPrice.toLocaleString('en-US')} - US$ {values.maxPrice.toLocaleString('en-US')}
 									</div>
-									<Slider range allowCross={false} value={[values.minPrice, values.maxPrice]} defaultValue={[values.minPrice, values.maxPrice]} min={2500} max={15000} step={500} onChange={value => {
+									<Slider range allowCross={false} value={[values.minPrice, values.maxPrice]} defaultValue={[values.minPrice, values.maxPrice]} min={2000} max={15000} step={500} onChange={value => {
 										const [min, max] = value as [number, number];
 										setFieldValue('minPrice', min);
 										setFieldValue('maxPrice', max);
@@ -166,6 +167,8 @@ export default function ProductFilters({
 										['4.5-5', '4.5+'],
 										['4.85-5', '4.85+'],
 									].map(([value, text]) => {
+										const [min] = value.split('-');
+
 										return (
 											<label
 												key={value}
@@ -180,6 +183,7 @@ export default function ProductFilters({
 													className="hidden peer"
 												/>
 												<div className="font-bold text-lg">{text}</div>
+												{parseFloat(min) > 0 && <div><StarRating rating={parseFloat(min)} size="size-4" /></div>}
 											</label>
 										)
 									})}
@@ -214,7 +218,7 @@ export default function ProductFilters({
 								<div className="filter__title">Treatment method</div>
 
 								<div className="space-y-2">
-									{Array.from(new Set(treatments.map(t => t.method))).map(option => (
+									{Array.from(new Set(treatments.map(t => t.method))).filter(t => t.length > 0).map(option => (
 										<Checkbox key={option} name="method" value={option} htmlFor={option} label={option} />
 									))}
 								</div>

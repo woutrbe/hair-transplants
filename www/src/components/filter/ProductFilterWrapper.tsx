@@ -7,13 +7,11 @@ import ProductFilters from "./ProductFilters";
 import { Loader2 } from "lucide-react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
 
-interface Props {
-	treatments: Treatment[];
-}
-
 export default function ProductFilterWrapper({
-	treatments
-}: Props) {
+	treatments,
+}: {
+	treatments: Treatment[],
+}) {
 	const [sortBy, setSortBy] = useState<string>('rating-asc');
 	const [filteredTreatments, setFilteredTreatments] = useState<Treatment[]>(treatments);
 	const [isLoading, setIsLoading] = useState<boolean>(false);

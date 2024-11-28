@@ -1,7 +1,8 @@
-import { Star, MapPin, Globe, ChevronRight } from 'lucide-react'
+import { MapPin, Globe, ChevronRight } from 'lucide-react'
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Treatment } from "../content/types";
+import StarRating from './StarRating';
 
 export default function TreatmentCard({
 	treatment
@@ -41,18 +42,8 @@ export default function TreatmentCard({
 
 					{/* Section 2: Reviews */}
 					<div className="col-span-4 sm:col-span-1 flex flex-col justify-center items-center ">
-						<div className="flex items-center gap-1 mb-2">
-							{[1, 2, 3, 4, 5].map((star) => (
-								<Star
-									key={star}
-									className={`w-6 h-6 ${star <= Math.floor(treatment.review.score)
-										? 'text-yellow-400 fill-yellow-400'
-										: star === Math.ceil(treatment.review.score) && treatment.review.score % 1 !== 0
-											? 'text-yellow-400 fill-yellow-400 [clip-path:inset(0_50%_0_0)]'
-											: 'text-gray-200 fill-gray-200'
-										}`}
-								/>
-							))}
+						<div className="mb-2">
+							<StarRating rating={treatment.review.score} />
 						</div>
 						<div className="text-sm text-muted-foreground">
 							<a href={treatment.review.source} target="blank" className="hover:underline">{treatment.review.score} stars, {treatment.review.totalReviews} reviews</a>
