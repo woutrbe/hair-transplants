@@ -65,7 +65,7 @@ export default function ProductFilters({
 		treatments = treatments.filter(t => t.price.usd_price >= filters.minPrice && t.price.usd_price <= filters.maxPrice);
 
 		// Package size
-		treatments = treatments.filter(t => filters.package_size.includes(t.package_size));
+		treatments = treatments.filter(t => t.package_size === filters.package_size);
 
 		// Rating
 		const [minRating, maxRating] = filters.rating.split('-');
@@ -134,7 +134,7 @@ export default function ProductFilters({
 												/>
 												<div className="font-bold text-lg">{text}</div>
 												<div className="text-gray-300 font-sm">{follicles}</div>
-												<div className="text-gray-300 font-sm">follicles</div>
+												<div className="text-gray-300 font-sm">Grafts</div>
 											</label>
 										)
 									})}
@@ -143,7 +143,6 @@ export default function ProductFilters({
 
 							<div className="filter">
 								<div className="filter__title">Your budget</div>
-
 								<div>
 									<div className="text-sm text-gray-700 mb-1">
 										US$ {values.minPrice.toLocaleString('en-US')} - US$ {values.maxPrice.toLocaleString('en-US')}
@@ -223,7 +222,6 @@ export default function ProductFilters({
 									))}
 								</div>
 							</div>
-
 							<div>
 								<button className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-md px-5 py-3" type="submit">Find your clinic</button>
 							</div>
