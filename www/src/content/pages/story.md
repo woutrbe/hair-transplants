@@ -1,7 +1,7 @@
 ---
 slug: story
 title: Our story
-description: Testing
+description: Thinking about a hair transplant? Explore key considerations, costs, techniques, and expert tips to make an informed decision about restoring your hair.
 
 faq:
   - q: Why are you getting a hair transplant?
