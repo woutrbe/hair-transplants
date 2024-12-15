@@ -1,4 +1,4 @@
-import { MapPin, Globe, ChevronRight } from 'lucide-react'
+import { MapPin, Globe, ChevronRight, MessageCircle } from 'lucide-react'
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Treatment } from "../content/types";
@@ -77,7 +77,7 @@ export default function TreatmentCard({
 					</div>
 
 					<div className="flex items-center">
-						<Globe className="w-4 h-4 mr-2" />
+						<MessageCircle className="w-4 h-4 mr-2" />
 						<div className="flex gap-1">
 							{treatment.clinic.languages.join(', ')}
 						</div>
