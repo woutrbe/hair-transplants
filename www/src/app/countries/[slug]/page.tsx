@@ -14,9 +14,9 @@ interface Props {
 
 export async function generateStaticParams() {
 	const pages = await getClinics();
-	const uniqueCountires = Array.from(new Set(pages.map(c => c.country)));
+	const uniqueCountries = Array.from(new Set(pages.map(c => c.country)));
 
-	return uniqueCountires.map(country => ({
+	return uniqueCountries.map(country => ({
 		slug: slugify(country),
 	}))
 };
