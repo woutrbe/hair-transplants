@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getHomepage, getTreatments } from "../content/types";
+import { getClinics, getHomepage, TreatmentWithClinic } from "../content/types";
 import ProductFilterWrapper from "../components/filter/ProductFilterWrapper";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,8 +16,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-	const treatments = await getTreatments();
 	const homepage = await getHomepage();
+
+	const clinics = await getClinics();
+	const treatments: TreatmentWithClinic[] = clinics.flatMap(c=> (c.treatments || []).map(t => {
+		return {
+			...t,
+			clinic: c,
+		}
+	}));
 
 	return (
 		<>

@@ -1,13 +1,12 @@
 import { MapPin, ChevronRight, MessageCircle } from 'lucide-react'
-import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
-import { Treatment } from "../content/types";
+import { TreatmentWithClinic } from "../content/types";
 import StarRating from './StarRating';
 
 export default function TreatmentCard({
 	treatment
 }: {
-	treatment: Treatment;
+	treatment: TreatmentWithClinic;
 }) {
 	return (
 		<div key={treatment.clinic.name} className="bg-white rounded-xl shadow-md overflow-hidden">
@@ -15,38 +14,32 @@ export default function TreatmentCard({
 				{/* Section 0: Header */}
 				<div className="flex justify-between items-start mb-4">
 					<h2 className="text-2xl font-bold text-primary">{treatment.clinic.name}</h2>
-					{treatment.badges.length > 0 && (
-						<div className="flex gap-2">
-							{treatment.badges.map((badge) => (
-								<Badge key={badge} variant="secondary" className="bg-primary/10 text-primary">
-									{badge}
-								</Badge>
-							))}
-						</div>
-					)}
+					<div className="flex gap-2">
+						<Badge variant="secondary" className="bg-primary/10 text-primary">
+							{treatment.method}
+						</Badge>
+					</div>
 				</div>
 
 				<div className="grid grid-cols-4 gap-6">
 					{/* Section 1: Metadata */}
 					<div className="col-span-4 sm:col-span-1 flex sm:flex-col items-center justify-center sm:items-start gap-4">
-						<Image
+						<img
 							src={`/clinics/${treatment.clinic.imagePath}`}
 							alt={`${treatment.clinic.name} logo`}
 							width={200}
 							height={60}
 							className="rounded-lg"
 						/>
-						<div>
-						</div>
 					</div>
 
 					{/* Section 2: Reviews */}
 					<div className="col-span-4 sm:col-span-1 flex flex-col justify-center items-center ">
 						<div className="mb-2">
-							<StarRating rating={treatment.review.score} />
+							<StarRating rating={treatment.clinic.review.score} />
 						</div>
 						<div className="text-sm text-muted-foreground">
-							<a href={treatment.review.source} target="blank" className="hover:underline">{treatment.review.score} stars, {treatment.review.totalReviews} reviews</a>
+							<a href={treatment.clinic.review.source} target="blank" className="hover:underline">{treatment.clinic.review.score} stars, {treatment.clinic.review.totalReviews} reviews</a>
 						</div>
 					</div>
 
@@ -87,7 +80,7 @@ export default function TreatmentCard({
 				<a href={treatment.clinic.url} target="blank" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
 					Book Consultation
 					<ChevronRight className="w-4 h-4" />
-                </a>
+				</a>
 			</div>
 		</div>
 	)

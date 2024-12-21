@@ -1,6 +1,6 @@
 'use client';
 
-import { Treatment } from "../../content/types"
+import { TreatmentWithClinic } from "../../content/types"
 import { Formik, Field, useFormikContext } from "formik";
 import Slider from 'rc-slider';
 import Checkbox from "../ui/Checkbox";
@@ -10,9 +10,9 @@ import { useEffect, useMemo } from "react";
 import StarRating from "../StarRating";
 
 interface Props {
-	treatments: Treatment[];
+	treatments: TreatmentWithClinic[];
 
-	onSubmit: (treatments: Treatment[]) => void;
+	onSubmit: (treatments: TreatmentWithClinic[]) => void;
 }
 
 interface FormFilterValues {
@@ -57,7 +57,7 @@ export default function ProductFilters({
 		return groupedCountries;
 	}, [treatments])
 
-	const filterTreatments = (treatments: Treatment[], filters: FormFilterValues): Treatment[] => {
+	const filterTreatments = (treatments: TreatmentWithClinic[], filters: FormFilterValues): TreatmentWithClinic[] => {
 		// Method
 		treatments = treatments.filter(t => filters.method.includes(t.method));
 
@@ -70,7 +70,7 @@ export default function ProductFilters({
 		// Rating
 		const [minRating, maxRating] = filters.rating.split('-');
 		if (minRating && maxRating) {
-			treatments = treatments.filter(t => t.review.score >= parseFloat(minRating) && t.review.score <= parseFloat(maxRating));
+			treatments = treatments.filter(t => t.clinic.review.score >= parseFloat(minRating) && t.clinic.review.score <= parseFloat(maxRating));
 		}
 
 		// Countries

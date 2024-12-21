@@ -15,8 +15,8 @@
     {
       "link": ["Clinics"],
       "sub": [
-        ["Netherlands", "/netherlands"],
-        ["Belgium", "/belgium"]
+        ["Netherlands", "/countries/netherlands"],
+        ["Belgium", "/countries/belgium"]
       ]
     },
     {

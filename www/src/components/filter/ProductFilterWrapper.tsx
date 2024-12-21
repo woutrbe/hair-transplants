@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { Treatment } from "../../content/types";
+import { TreatmentWithClinic } from "../../content/types";
 import TreatmentCard from "../TreatmentCard";
 import ProductFilters from "./ProductFilters";
 import { Loader2 } from "lucide-react";
@@ -10,10 +10,10 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 export default function ProductFilterWrapper({
 	treatments,
 }: {
-	treatments: Treatment[],
+	treatments: TreatmentWithClinic[],
 }) {
 	const [sortBy, setSortBy] = useState<string>('rating-asc');
-	const [filteredTreatments, setFilteredTreatments] = useState<Treatment[]>(treatments);
+	const [filteredTreatments, setFilteredTreatments] = useState<TreatmentWithClinic[]>(treatments);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const onSortingChange = (value: string) => {
@@ -22,16 +22,16 @@ export default function ProductFilterWrapper({
 		onSubmit(treatments, value);
 	}
 
-	const onSubmit = (treatments: Treatment[], sortBy = 'rating-asc') => {
+	const onSubmit = (treatments: TreatmentWithClinic[], sortBy = 'rating-asc') => {
 		// Sorting
 		switch(sortBy) {
 			case 'rating-asc':
 				treatments = treatments.sort((a, b) => {
-					return b.review.score - a.review.score;
+					return b.clinic.review.score - a.clinic.review.score;
 				});
 			case 'rating-desc':
 				treatments = treatments.sort((a, b) => {
-					return a.review.score - b.review.score;
+					return a.clinic.review.score - b.clinic.review.score;
 				});
 			case 'price-desc':
 				treatments = treatments.sort((a, b) => {

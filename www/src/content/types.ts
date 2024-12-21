@@ -12,27 +12,25 @@ export type Config = {
 	],
 }
 
-export type Treatment = {
-	method: string;
-	grafts: {
-		from: number;
-		to: number;
-	};
-	package_size: string;
-	clinic: {
-		name: string;
-		url: string;
-		imagePath: string;
-		city: string;
-		country: string;
-		countryCode: string;
-		languages: string[];
-	};
-	price: {
-		local_price: number;
-		local_currency: string;
-		usd_price: number;
-	};
+export type Clinic = {
+	slug: string;
+
+	name: string;
+	url: string;
+	imagePath: string;
+
+	location: string;
+	city: string;
+	country: string;
+	countryCode: string;
+
+	languages: string[];
+
+	consulationPriceIncluded: boolean;
+	consulationOnline: boolean;
+
+	formAvailable: boolean;
+	formUrl: string;
 
 	review: {
 		score: number;
@@ -40,7 +38,26 @@ export type Treatment = {
 		totalReviews: number;
 	}
 
-	badges: string[];
+	treatments?: Treatment[];
+}
+
+export type Treatment = {
+	method: string;
+	grafts: {
+		from: number;
+		to: number;
+	};
+	package_size: string;
+	price: {
+		local_price: number;
+		local_currency: string;
+		usd_price: number;
+	};
+
+	clinic_slug: string;
+}
+export type TreatmentWithClinic = Treatment & {
+	clinic: Clinic;
 }
 
 export type Page = {
@@ -60,8 +77,63 @@ const getJSONFile = async <T>(file: string): Promise<T> => {
 	const content = readFileSync(`${process.cwd()}/src/content/${file}.json`, 'utf-8');
 	return JSON.parse(content) as T;
 }
-const getCSVFile = async <T>(file: string): Promise<T[]> => {
-	const content = readFileSync(`${process.cwd()}/src/content/${file}.csv`, 'utf-8');
+
+export const getConfig = async (): Promise<Config> => await getJSONFile<Config>('config');
+
+export const getClinics = async (): Promise<Clinic[]> => {
+	const content = readFileSync(`${process.cwd()}/src/content/clinics.csv`, 'utf-8');
+	const parsed = parse(content, {
+		columns: true,
+		skip_empty_lines: true,
+	});
+
+	const treatments: Treatment[] = await getTreatments();
+	return parsed.map((d: any) => {
+		const clinic: Clinic = {
+			slug: d['slug'],
+
+			name: d['ClinicName'],
+			url: d['Website'],
+			imagePath: d['ClinicImgName'],
+
+			location: d['Location'],
+			city: d['City'],
+			country: d['Country'],
+			countryCode: d['Country Code'],
+
+			languages: d['Languages'].split(', '),
+
+			consulationPriceIncluded: d['ConsultationPriceIncluded'] === 'Yes',
+			consulationOnline: d['ConsultationOnline'] === 'Yes',
+
+			formAvailable: d['FormAvailable'] === 'Yes',
+			formUrl: d['FormURL'],
+
+			review: {
+				score: parseFloat(d['Review Score']),
+				source: d['Source'],
+				totalReviews: d['Total Reviews'],
+			},
+
+			treatments: treatments.filter(t => t.clinic_slug === d['slug']),
+		}
+
+		return clinic;
+	})
+}
+export const getClinic = async (slug: string): Promise<Clinic> => {
+	const clinics = await getClinics();
+	const clinic = clinics.find(c => c.slug === slug);
+
+	if(!clinic) {
+		throw new Error(`Clinic not found ${slug}`);
+	}
+
+	return clinic;
+}
+
+export const getTreatments = async (): Promise<Treatment[]> => {
+	const content = readFileSync(`${process.cwd()}/src/content/products.csv`, 'utf-8');
 	const parsed = parse(content, {
 		columns: true,
 		skip_empty_lines: true,
@@ -74,21 +146,9 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 			method: d['Method'],
 			grafts: {
 				from: parseFloat(minGrafts),
-				to: parseFloat(maxGrafts ?? d['Grafts']),
+				to: parseFloat(maxGrafts ?? minGrafts),
 			},
 			package_size: d['Package_size'],
-
-			clinic: {
-				name: d['ClinicName'],
-				url: d['URL'],
-				imagePath: d['LogoName'],
-
-				city: d['City'],
-				country: d['Country'],
-				countryCode: d['Country Code'],
-
-				languages: d['Languages'].split(', ')
-			},
 
 			price: {
 				local_price: parseFloat(d['local_price']),
@@ -97,21 +157,12 @@ const getCSVFile = async <T>(file: string): Promise<T[]> => {
 				usd_price: parseFloat(d['usd_price']),
 			},
 
-			review: {
-				score: parseFloat(d['Review Score']),
-				source: d['Source'],
-				totalReviews: d['Total Reviews'],
-			},
-
-			badges: d['Method'].split(', ')
+			clinic_slug: d['slug_clinic'],
 		}
 
 		return treatment;
-	});
-}
-
-export const getConfig = async (): Promise<Config> => await getJSONFile<Config>('config');
-export const getTreatments = async (): Promise<Treatment[]> => await getCSVFile<Treatment>('clinics');
+	})
+};
 
 const getMarkdownFiles = async <T>(directory: string): Promise<T[]> => {
 	const files = await glob(`${process.cwd()}/src/content/${directory}/**/*.md`);
