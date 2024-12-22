@@ -5,6 +5,7 @@ import { Globe, MapPin, MessageCircle, Scissors } from "lucide-react";
 import StarRating from "../../../components/StarRating";
 import { Card, CardHeader, CardTitle, CardContent } from "../../../components/ui/card";
 import { Badge } from "../../../components/ui/badge";
+import Link from 'next/link'
 
 interface Props {
 	params: {
@@ -47,9 +48,9 @@ export default async function CountryPage(props: Props) {
 					const methodsArray = Array.from(new Set((clinic.treatments || []).map(t => t.method)));
 
 					return (
-						<Card key={index} className="w-full">
+						<Card key={index} className="w-full group relative overflow-hidden">
 							<CardHeader className="flex flex-col items-center space-y-4 pb-6">
-								<div className="w-32 h-32 overflow-hidden bg-gray-200 flex items-center justify-center">
+								<div className="w-32 h-32 overflow-hidden flex items-center justify-center">
 									<img
 										src={`/clinics/${clinic.imagePath}`}
 										alt={`${clinic.name} logo`}
@@ -104,6 +105,14 @@ export default async function CountryPage(props: Props) {
 									</div>
 								</div>
 							</CardContent>
+							<div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gray-700 bg-opacity-50">
+								<Link 
+									href={`/clinics/${clinic.slug}`}
+									className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2"
+								>
+									Learn More
+								</Link>
+							</div>
 						</Card>
 					);
 				})}
