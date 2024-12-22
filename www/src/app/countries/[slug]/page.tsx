@@ -6,6 +6,10 @@ import StarRating from "../../../components/StarRating";
 import { Card, CardHeader, CardTitle, CardContent } from "../../../components/ui/card";
 import { Badge } from "../../../components/ui/badge";
 import Link from 'next/link'
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import GoogleMapsComponent from "../../../components/GoogleMaps";
+
 
 interface Props {
 	params: {
@@ -21,7 +25,6 @@ export async function generateStaticParams() {
 		slug: slugify(country),
 	}))
 };
-
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
 	return {
@@ -41,6 +44,27 @@ export default async function CountryPage(props: Props) {
 	return (
 		<div className="mb-20">
 			<h2>Clinics in {props.params.slug}</h2>
+
+			{/* Search and Filter */}
+			<div className="mb-8 flex flex-col sm:flex-row gap-4">
+				<Input 
+					placeholder="Search clinics..." 
+					className="flex-grow"
+				/>
+				<Select>
+					<SelectTrigger className="w-full sm:w-[180px]">
+						<SelectValue placeholder="Filter by specialty" />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectItem value="all">All Specialties</SelectItem>
+						<SelectItem value="FUE">FUE</SelectItem>
+						<SelectItem value="FUT">FUT</SelectItem>
+						<SelectItem value="PRP">PRP</SelectItem>
+						<SelectItem value="Beard Transplant">Beard Transplant</SelectItem>
+						<SelectItem value="Eyebrow Transplant">Eyebrow Transplant</SelectItem>
+					</SelectContent>
+				</Select>
+			</div>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{filteredByCountry.map((clinic, index) => {
@@ -116,6 +140,17 @@ export default async function CountryPage(props: Props) {
 						</Card>
 					);
 				})}
+			</div>
+			<div className="mt-8">
+				<h2 className="text-2xl font-bold mb-4 text-center">Clinic Locations</h2>
+				<GoogleMapsComponent clinics={filteredByCountry.map(clinic => ({
+					ClinicName: clinic.name,
+					Location: clinic.location,
+					City: clinic.city,
+					Country: clinic.country,
+					lat: clinic.lat,
+					lng: clinic.lng
+				}))}/>
 			</div>
 		</div>
 	);
