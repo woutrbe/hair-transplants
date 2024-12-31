@@ -12,6 +12,12 @@ export type Config = {
 	],
 }
 
+export type Country = {
+	cc: string;
+	slug: string;
+	name: string;
+}
+
 export type Clinic = {
 	slug: string;
 
@@ -79,6 +85,29 @@ const getJSONFile = async <T>(file: string): Promise<T> => {
 }
 
 export const getConfig = async (): Promise<Config> => await getJSONFile<Config>('config');
+
+export const getCountries = async (): Promise<Country[]> => {
+	const data = await getJSONFile<Country[]>('countries');
+	return data;
+}
+export const getCountry = async (slug: string): Promise<Country> => {
+	const data = await getJSONFile<Country[]>('countries');
+	const country = data.find(c => c.slug === slug);
+	if(!country) {
+		throw new Error(`Country not found ${slug}`);
+	}
+
+	return country;
+}
+export const getCountryByCC = async (CC: string): Promise<Country> => {
+	const data = await getJSONFile<Country[]>('countries');
+	const country = data.find(c => c.slug === CC);
+	if(!country) {
+		throw new Error(`Country not found ${CC}`);
+	}
+
+	return country;
+}
 
 export const getClinics = async (): Promise<Clinic[]> => {
 	const content = readFileSync(`${process.cwd()}/src/content/clinics.csv`, 'utf-8');

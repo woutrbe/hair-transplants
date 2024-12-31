@@ -1,22 +1,25 @@
 {
   "navigation": [
     {
-      "link": ["Treatment Guide", "treatment-options"]
+      "link": ["Treatment Guide", "/treatment-options"]
     },
     {
-      "link": ["Our Mission", "mission"]
+      "link": ["Our Mission", "/mission"]
     },
     {
-      "link": ["Our Story", "story"]
+      "link": ["Our Story", "/story"]
     },
     {
-      "link": ["Costs Explained", "costs-explained"]
+      "link": ["Costs Explained", "/costs-explained"]
     },
     {
       "link": ["Clinics"],
       "sub": [
-        ["Netherlands", "/countries/netherlands"],
-        ["Belgium", "/countries/belgium"]
+        ["Netherlands", "/countries/the-netherlands"],
+        ["Belgium", "/countries/belgium"],
+        ["Turkey", "/countries/turkey"],
+        ["Australia", "/countries/australia"],
+        ["New Zealand", "/countries/new-zealand"]
       ]
     },
     {

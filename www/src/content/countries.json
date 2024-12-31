@@ -1,0 +1,27 @@
+[
+  {
+    "cc": "BE",
+    "slug": "belgium",
+    "name": "Belgium"
+  },
+  {
+    "cc": "NL",
+    "slug": "the-netherlands",
+    "name": "The Netherlands"
+  },
+  {
+    "cc": "TR",
+    "slug": "turkey",
+    "name": "Turkey"
+  },
+  {
+    "cc": "AU",
+    "slug": "australia",
+    "name": "Australia"
+  },
+  {
+    "cc": "NZ",
+    "slug": "new-zealand",
+    "name": "New Zealand"
+  }
+]

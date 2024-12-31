@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { getClinics } from "../../../content/types";
-import slugify from '@sindresorhus/slugify';
+import { getClinics, getCountries, getCountry } from "../../../content/types";
 import { Globe, MapPin, MessageCircle, Scissors } from "lucide-react";
 import StarRating from "../../../components/StarRating";
 import { Card, CardHeader, CardTitle, CardContent } from "../../../components/ui/card";
@@ -18,18 +17,19 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-	const pages = await getClinics();
-	const uniqueCountries = Array.from(new Set(pages.map(c => c.country)));
+	const countries = await getCountries();
 
-	return uniqueCountries.map(country => ({
-		slug: slugify(country),
+	return countries.map(country => ({
+		slug: country.slug,
 	}))
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
+	const country = await getCountry(props.params.slug);
+
 	return {
-		title: props.params.slug,
-		description: props.params.slug,
+		title: `Hair transplant clinics in ${country.name}`,
+		description: `Hair transplant clinics in ${country.name}`,
 
 		alternates: {
 			canonical: `${process.env.URL}/countries/${props.params.slug}`,
@@ -38,17 +38,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function CountryPage(props: Props) {
+	const country = await getCountry(props.params.slug);
+
 	const allClinics = await getClinics();
-	const filteredByCountry = allClinics.filter(c => slugify(c.country) === props.params.slug);
+	const filteredByCountry = allClinics.filter(c => c.countryCode === country.cc);
 
 	return (
 		<div className="mb-20">
-			<h2>Clinics in {props.params.slug}</h2>
+			<h2 className="font-bold text-3xl mb-5">Hair transplant clinics in {country.name}</h2>
 
 			{/* Search and Filter */}
 			<div className="mb-8 flex flex-col sm:flex-row gap-4">
-				<Input 
-					placeholder="Search clinics..." 
+				<Input
+					placeholder="Search clinics..."
 					className="flex-grow"
 				/>
 				<Select>
@@ -130,7 +132,7 @@ export default async function CountryPage(props: Props) {
 								</div>
 							</CardContent>
 							<div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gray-700 bg-opacity-50">
-								<Link 
+								<Link
 									href={`/clinics/${clinic.slug}`}
 									className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2"
 								>
