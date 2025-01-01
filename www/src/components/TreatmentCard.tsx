@@ -13,7 +13,11 @@ export default function TreatmentCard({
 			<div className="p-6">
 				{/* Section 0: Header */}
 				<div className="flex justify-between items-start mb-4">
-					<h2 className="text-2xl font-bold text-primary">{treatment.clinic.name}</h2>
+					<a className='hover:underline' href={`/clinics/${treatment.clinic.slug}`} title={treatment.clinic.name}>
+						<h2 className="text-2xl font-bold text-primary">
+							{treatment.clinic.name}
+						</h2>
+					</a>
 					<div className="flex gap-2">
 						<Badge variant="secondary" className="bg-primary/10 text-primary">
 							{treatment.method}

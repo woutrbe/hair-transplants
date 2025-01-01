@@ -15,7 +15,7 @@
     {
       "link": ["Clinics"],
       "sub": [
-        ["Netherlands", "/countries/the-netherlands"],
+        ["The Netherlands", "/countries/the-netherlands"],
         ["Belgium", "/countries/belgium"],
         ["Turkey", "/countries/turkey"],
         ["Australia", "/countries/australia"],

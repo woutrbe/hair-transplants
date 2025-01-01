@@ -1,7 +1,6 @@
 import { MenuIcon } from "lucide-react";
-import EmailSignupForm from "../components/EmailSignupForm";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
-import { getConfig } from "../content/types";
+import { getConfig, getCountries } from "../content/types";
 import "./globals.css";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import Banner from "@/components/Banner";
@@ -12,6 +11,7 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }>) {
 	const config = await getConfig();
+	const countries = await getCountries();
 
 	return (
 		<html lang="en">
@@ -111,25 +111,30 @@ export default async function RootLayout({
 
 				<footer className="bg-[#e6f3f3]">
 					<div className="container mx-auto px-4 py-10">
-						<div className="mb-14 flex flex-col md:flex-row items-center">
-							<div>
-								<h1 className="mb-3">
-									<a href="/" title="Hair compare" className="text-2xl text-black">
-										HairClinicFinder.
-									</a>
-								</h1>
-								<div className="text-slate-900">Helping you find the best hair transplant clinics worldwide.</div>
-							</div>
-							<div className="md:ml-auto">
-								<form action="/">
-									<div className="flex space-x-5">
-										<EmailSignupForm />
-									</div>
-								</form>
-							</div>
+						<div className="mb-14">
+							<h1 className="mb-3">
+								<a href="/" title="Hair compare" className="text-2xl text-black">
+									HairClinicFinder.
+								</a>
+							</h1>
+							<div className="text-slate-900 mb-2">Helping you find the best hair transplant clinics worldwide.</div>
+							<div className="text-slate-900">We’ve gathered all the information you need so you can easily search for hair transplant clinics across the globe. Start your journey today with our user-friendly filter and sort options.</div>
 						</div>
 
 						<div className="grid grid-cols-1 md:grid-cols-3 space-y-10 md:space-y-0">
+							<div>
+								<h3 className="text-slate-900 text-xl font-semibold mb-5">Countries</h3>
+								<div className="text-slate-900">
+									<ul>
+										{countries.map(country => {
+											return <li key={country.slug}>
+												<a href={`/countries/${country.slug}`} title={country.name}>{country.name}</a>
+											</li>
+										})}
+									</ul>
+								</div>
+							</div>
+
 							<div>
 								<h3 className="text-slate-900 text-xl font-semibold mb-5">About Us</h3>
 								<div className="text-slate-900">
