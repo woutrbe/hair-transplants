@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { getClinic, getClinics, TreatmentWithClinic } from "../../../content/types";
 import TreatmentCard from "../../../components/TreatmentCard";
 import StarRating from "../../../components/StarRating";
-import { ChevronRight, MapPin, MessageCircle } from "lucide-react";
+import { ChevronRight, Globe, MapPin, MessageCircle, Scissors } from "lucide-react";
+import { Badge } from "../../../components/ui/badge";
 
 interface Props {
 	params: {
@@ -46,6 +47,8 @@ export default async function ClinicPage(props: Props) {
 		return <>Clinic not found...</>
 	}
 
+	const methods = Array.from(new Set((clinic.treatments || []).map(t => t.method)));
+
 	return (
 		<div>
 			<div className="relative flex flex-col md:flex-row space-y-10 md:space-y-0 md:space-x-10">
@@ -54,17 +57,37 @@ export default async function ClinicPage(props: Props) {
 						<h2 className="font-bold text-3xl mb-5">{clinic.name}</h2>
 
 						<div className="gap-1 text-muted-foreground text-sm space-y-2">
+							<div className="flex items-center space-x-2">
+								<Globe className="h-4 w-4" />
+								<a href={clinic.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{clinic.url}</a>
+							</div>
+
 							<div className="flex items-center mb-1">
 								<MapPin className="w-4 h-4 mr-2" />
-								<span>{clinic.city}, {clinic.country}</span>
+								<span>{clinic.location}, {clinic.city}, {clinic.country}</span>
 							</div>
 
 							<div className="flex items-center">
 								<MessageCircle className="w-4 h-4 mr-2" />
-								<div className="flex gap-1">
-									{clinic.languages.join(', ')}
+								<div className="flex flex-wrap gap-1">
+									{clinic.languages.map((lang, index) => (
+										<Badge key={index} variant="secondary">{lang}</Badge>
+									))}
 								</div>
 							</div>
+
+							<div className="flex items-center space-x-2">
+								<Scissors className="h-4 w-4" />
+								<div className="flex flex-wrap gap-1">
+									{methods.map((method, index) => (
+										<Badge key={index} variant="secondary">{method}</Badge>
+									))}
+								</div>
+							</div>
+						</div>
+
+						<div>
+							{clinic.consulationOnline && <Badge variant="outline">Online Available</Badge>}
 						</div>
 
 						<div>
