@@ -7,6 +7,7 @@ import { Badge } from "../../../components/ui/badge";
 import Link from 'next/link'
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import GoogleMapsComponent from "@/components/GoogleMaps"
 
 interface Props {
 	params: {
@@ -141,17 +142,17 @@ export default async function CountryPage(props: Props) {
 					);
 				})}
 			</div>
-			{/* <div className="mt-8">
+			<div className="mt-8">
 				<h2 className="text-2xl font-bold mb-4 text-center">Clinic Locations</h2>
 				<GoogleMapsComponent clinics={filteredByCountry.map(clinic => ({
-					ClinicName: clinic.name,
-					Location: clinic.location,
-					City: clinic.city,
-					Country: clinic.country,
+					name: clinic.name,
+					location: clinic.location,
+					city: clinic.city,
+					country: clinic.country,
 					lat: clinic.lat,
-					lng: clinic.lng
+					lng: clinic.lng,
 				}))}/>
-			</div> */}
+			</div>
 		</div>
 	);
 }

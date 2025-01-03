@@ -31,6 +31,8 @@ export type Clinic = {
 	countryCode: string;
 
 	languages: string[];
+	lat: number;
+	lng: number;
 
 	consulationPriceIncluded: boolean;
 	consulationOnline: boolean;
@@ -131,6 +133,8 @@ export const getClinics = async (): Promise<Clinic[]> => {
 			countryCode: d['Country Code'],
 
 			languages: d['Languages'].split(', '),
+			lat: d['Lat'],
+			lng: d['Lng'],
 
 			consulationPriceIncluded: d['ConsultationPriceIncluded'] === 'Yes',
 			consulationOnline: d['ConsultationOnline'] === 'Yes',
@@ -208,6 +212,7 @@ export const getPage = async (slug: string): Promise<Page> => {
 
 	return page;
 };
+
 export const getHomepage = async (): Promise<Page> => {
 	const content = readFileSync(`${process.cwd()}/src/content/homepage.md`, 'utf-8');
 	return matter(content) as unknown as Page;
