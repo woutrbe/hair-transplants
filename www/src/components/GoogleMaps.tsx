@@ -38,12 +38,8 @@ export default function GoogleMapsComponent({ clinics }: MapProps) {
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     const bounds = new window.google.maps.LatLngBounds()
     clinics.forEach(clinic => {
-      console.log('clinic');
-      console.log(clinic);
       const lat = parseFloat(clinic.lat.toString());
       const lng = parseFloat(clinic.lng.toString());
-      console.log(lat);
-      console.log(lng);
       if (!isNaN(lat) && !isNaN(lng)) {
         bounds.extend({ lat, lng });
       }
