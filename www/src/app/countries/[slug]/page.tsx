@@ -38,7 +38,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function CountryPage(props: Props) {
 	const country = await getCountry(props.params.slug);
-
 	const allClinics = await getClinics();
 	const filteredByCountry = allClinics.filter(c => c.countryCode === country.cc);
 
@@ -142,14 +141,7 @@ export default async function CountryPage(props: Props) {
 			</div>
 			<div className="mt-8">
 				<h2 className="text-2xl font-bold mb-4 text-center">Clinic Locations</h2>
-				<GoogleMapsComponent clinics={filteredByCountry.map(clinic => ({
-					name: clinic.name,
-					location: clinic.location,
-					city: clinic.city,
-					country: clinic.country,
-					lat: clinic.lat,
-					lng: clinic.lng,
-				}))}/>
+				<GoogleMapsComponent clinics={filteredByCountry} />
 			</div>
 		</div>
 	);
