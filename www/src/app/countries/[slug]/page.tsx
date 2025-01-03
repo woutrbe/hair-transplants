@@ -58,11 +58,9 @@ export default async function CountryPage(props: Props) {
 					</SelectTrigger>
 					<SelectContent>
 						<SelectItem value="all">All Specialties</SelectItem>
+						<SelectItem value="DHI">DHI</SelectItem>
 						<SelectItem value="FUE">FUE</SelectItem>
-						<SelectItem value="FUT">FUT</SelectItem>
-						<SelectItem value="PRP">PRP</SelectItem>
-						<SelectItem value="Beard Transplant">Beard Transplant</SelectItem>
-						<SelectItem value="Eyebrow Transplant">Eyebrow Transplant</SelectItem>
+						<SelectItem value="Micro FUE">Micro FUE</SelectItem>
 					</SelectContent>
 				</Select>
 			</div>
