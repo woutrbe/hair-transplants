@@ -14,7 +14,7 @@ export interface MapClinic {
 }
 
 interface MapProps {
-	clinics: Clinic[]
+  clinics: MapClinic[]
 }
 
 const containerStyle = {
@@ -44,11 +44,19 @@ export default function GoogleMapsComponent({ clinics }: MapProps) {
         bounds.extend({ lat, lng });
       }
     });
-    map.fitBounds(bounds);
+
+    if (clinics.length === 1) {
+      map.setCenter(bounds.getCenter());
+      map.setZoom(12); // Adjust the zoom level for a single clinic
+    } else {
+      map.fitBounds(bounds);
+    }
+
+    setMap(map);
   }, [clinics])
 
   const onUnmount = React.useCallback(function callback(map: google.maps.Map) {
-    // No need to set map to null if it's not used
+    setMap(null)
   }, [])
 
   return (
@@ -79,4 +87,4 @@ export default function GoogleMapsComponent({ clinics }: MapProps) {
       ) : <></>}
     </div>
   )
-};
+}

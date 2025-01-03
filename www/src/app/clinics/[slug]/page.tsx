@@ -4,6 +4,7 @@ import TreatmentCard from "../../../components/TreatmentCard";
 import StarRating from "../../../components/StarRating";
 import { ChevronRight, Globe, MapPin, MessageCircle, Scissors } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
+import GoogleMapsComponent from "@/components/GoogleMaps";
 
 interface Props {
 	params: {
@@ -105,6 +106,7 @@ export default async function ClinicPage(props: Props) {
 								<ChevronRight className="w-4 h-4" />
 							</a>
 						</div>
+						<GoogleMapsComponent clinics={[clinic]} />
 					</div>
 				</div>
 
