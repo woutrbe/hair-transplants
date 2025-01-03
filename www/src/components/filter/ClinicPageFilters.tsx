@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Clinic } from "../../../content/types";
+import { Clinic } from "../../content/types";
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import GoogleMapsComponent from "@/components/GoogleMaps";
-import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
-import { Badge } from "../../../components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Badge } from "../ui/badge";
 import { Globe, MapPin, MessageCircle, Scissors } from "lucide-react";
-import StarRating from "../../../components/StarRating";
+import StarRating from "../StarRating";
 import { Formik, useFormikContext } from "formik";
 
 interface Props {

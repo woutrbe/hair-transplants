@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getClinics, getCountries, getCountry } from "../../../content/types";
-import CountryPageWrapper from "./CountryPageWrapper";
+import ClinicPageFilters from "../../../components/filter/ClinicPageFilters";
 
 interface Props {
 	params: {
@@ -38,7 +38,7 @@ export default async function CountryPage(props: Props) {
 		<div className="mb-20">
 			<h2 className="font-bold text-3xl mb-5">Hair transplant clinics in {country.name}</h2>
 
-			<CountryPageWrapper clinics={filteredByCountry} />
+			<ClinicPageFilters clinics={filteredByCountry} />
 		</div>
 	);
 }
