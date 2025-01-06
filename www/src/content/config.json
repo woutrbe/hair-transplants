@@ -15,11 +15,14 @@
     {
       "link": ["Clinics"],
       "sub": [
-        ["The Netherlands", "/countries/the-netherlands"],
-        ["Belgium", "/countries/belgium"],
-        ["Turkey", "/countries/turkey"],
         ["Australia", "/countries/australia"],
-        ["New Zealand", "/countries/new-zealand"]
+        ["Belgium", "/countries/belgium"],
+        ["China, Taiwan", "/countries/china-taiwan"],
+        ["Japan", "/countries/japan"],
+        ["New Zealand", "/countries/new-zealand"],
+        ["South Korea", "/countries/south-korea"],
+        ["The Netherlands", "/countries/the-netherlands"],
+        ["Turkey", "/countries/turkey"]
       ]
     },
     {

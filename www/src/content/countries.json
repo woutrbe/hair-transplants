@@ -1,5 +1,10 @@
 [
   {
+    "cc": "AU",
+    "slug": "australia",
+    "name": "Australia"
+  },
+  {
     "cc": "BE",
     "slug": "belgium",
     "name": "Belgium"
@@ -15,13 +20,23 @@
     "name": "Turkey"
   },
   {
-    "cc": "AU",
-    "slug": "australia",
-    "name": "Australia"
-  },
-  {
     "cc": "NZ",
     "slug": "new-zealand",
     "name": "New Zealand"
+  },
+  {
+    "cc": "KR",
+    "slug": "south-korea",
+    "name": "South Korea"
+  },
+  {
+    "cc": "JP",
+    "slug": "japan",
+    "name": "Japan"
+  },
+  {
+    "cc": "TW",
+    "slug": "china-taiwan",
+    "name": "China, Taiwan"
   }
 ]
