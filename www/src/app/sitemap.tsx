@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		'treatment-options',
 		'top-hair-transplant-clinics',
 		'best-hair-transplant-clinics',
+		'countries',
 		...countries.map(c => `countries/${c.slug}`),
 		...clinics.map(c => `clinics/${c.slug}`),
 	].map(slug => ({
