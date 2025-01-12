@@ -25,6 +25,23 @@ export type Clinic = {
 	url: string;
 	imagePath: string;
 
+	consulationPriceIncluded: boolean;
+	consulationOnline: boolean;
+
+	formAvailable: boolean;
+	formUrl: string;
+
+	review: {
+		avgScore: number;
+		totalReviews: number;
+	};
+
+	branches: Branch[];
+	treatments: Treatment[];
+	doctors: Doctor[];
+}
+
+export type Branch = {
 	location: string;
 	city: string;
 	country: string;
@@ -34,19 +51,25 @@ export type Clinic = {
 	lat: number;
 	lng: number;
 
-	consulationPriceIncluded: boolean;
-	consulationOnline: boolean;
-
-	formAvailable: boolean;
-	formUrl: string;
-
 	review: {
 		score: number;
 		source: string;
 		totalReviews: number;
 	}
 
-	treatments?: Treatment[];
+	localCurrency: string;
+
+	clinic_slug: string;
+}
+
+export type Doctor = {
+	slug: string;
+	name: string;
+	img: string;
+	description: string;
+	website: string;
+
+	clinic_slug: string;
 }
 
 export type Treatment = {
@@ -118,23 +141,21 @@ export const getClinics = async (): Promise<Clinic[]> => {
 		skip_empty_lines: true,
 	});
 
-	const treatments: Treatment[] = await getTreatments();
+	const allTreatments: Treatment[] = await getTreatments();
+	const allBranches: Branch[] = await getBranches();
+	const allDoctors: Doctor[] = await getDoctors();
+
 	return parsed.map((d: any) => {
+		const branches = allBranches.filter(b => b.clinic_slug === d['slug']);
+		const treatments = allTreatments.filter(t => t.clinic_slug === d['slug']);
+		const doctors = allDoctors.filter(d => d.clinic_slug === d['slug']);
+
 		const clinic: Clinic = {
 			slug: d['slug'],
 
 			name: d['ClinicName'],
 			url: d['Website'],
 			imagePath: d['ClinicImgName'],
-
-			location: d['Location'],
-			city: d['City'],
-			country: d['Country'],
-			countryCode: d['Country Code'],
-
-			languages: d['Languages'].split(', '),
-			lat: d['Lat'],
-			lng: d['Lng'],
 
 			consulationPriceIncluded: d['ConsultationPriceIncluded'] === 'Yes',
 			consulationOnline: d['ConsultationOnline'] === 'Yes',
@@ -143,12 +164,13 @@ export const getClinics = async (): Promise<Clinic[]> => {
 			formUrl: d['FormURL'],
 
 			review: {
-				score: parseFloat(d['Review Score']),
-				source: d['Source'],
-				totalReviews: d['Total Reviews'],
+				avgScore: branches.reduce((sum, branch) => sum + branch.review.score, 0) / branches.length,
+				totalReviews: branches.reduce((sum, branch) => sum + branch.review.totalReviews, 0)
 			},
 
-			treatments: treatments.filter(t => t.clinic_slug === d['slug']),
+			branches,
+			treatments,
+			doctors,
 		}
 
 		return clinic;
@@ -163,6 +185,61 @@ export const getClinic = async (slug: string): Promise<Clinic> => {
 	}
 
 	return clinic;
+}
+
+export const getBranches = async (): Promise<Branch[]> => {
+	const content = readFileSync(`${process.cwd()}/src/content/branches.csv`, 'utf-8');
+	const parsed = parse(content, {
+		columns: true,
+		skip_empty_lines: true,
+	});
+
+	return parsed.map((row: any) => {
+		const branch: Branch = {
+			location: row['Location'],
+			city: row['City'],
+			country: row['Country'],
+			countryCode: row['Country Code'],
+
+			languages: row['Languages'].split(', '),
+			lat: row['Lat'],
+			lng: row['Lng'],
+
+			localCurrency: row['local_currency'],
+
+			review: {
+				score: parseFloat(row['Review Score']),
+				source: row['Source'],
+				totalReviews: row['Total Reviews'],
+			},
+
+			clinic_slug: row['clinic'],
+		}
+
+		return branch;
+	})
+}
+
+export const getDoctors = async (): Promise<Doctor[]> => {
+	const content = readFileSync(`${process.cwd()}/src/content/doctors.csv`, 'utf-8');
+	const parsed = parse(content, {
+		columns: true,
+		skip_empty_lines: true,
+	});
+
+	return parsed.map((row: any) => {
+		const doctor: Doctor = {
+			slug: row['slug'],
+			name: row['name'],
+			img: row['img'],
+			description: row['description'],
+			website: row['website'],
+
+			clinic_slug: row['clinic'],
+		}
+
+		return doctor;
+	})
 }
 
 export const getTreatments = async (): Promise<Treatment[]> => {

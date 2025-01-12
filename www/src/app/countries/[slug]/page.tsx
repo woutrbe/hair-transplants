@@ -32,8 +32,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function CountryPage(props: Props) {
 	const country = await getCountry(props.params.slug);
 	const allClinics = await getClinics();
-	const filteredByCountry = allClinics.filter(c => c.countryCode === country.cc);
-
+	const filteredByCountry = allClinics.filter(c => c.branches.some(branch => branch.countryCode === country.cc));
 	return (
 		<div className="mb-20">
 			<h2 className="font-bold text-3xl mb-5">Hair transplant clinics in {country.name}</h2>

@@ -12,6 +12,8 @@ export default function ProductFilterWrapper({
 }: {
 	treatments: TreatmentWithClinic[],
 }) {
+	console.log(treatments);
+
 	const [sortBy, setSortBy] = useState<string>('rating-asc');
 	const [filteredTreatments, setFilteredTreatments] = useState<TreatmentWithClinic[]>(treatments);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,11 +29,11 @@ export default function ProductFilterWrapper({
 		switch(sortBy) {
 			case 'rating-asc':
 				treatments = treatments.sort((a, b) => {
-					return b.clinic.review.score - a.clinic.review.score;
+					return b.clinic.review.avgScore - a.clinic.review.avgScore;
 				});
 			case 'rating-desc':
 				treatments = treatments.sort((a, b) => {
-					return a.clinic.review.score - b.clinic.review.score;
+					return a.clinic.review.avgScore - b.clinic.review.avgScore;
 				});
 			case 'price-desc':
 				treatments = treatments.sort((a, b) => {

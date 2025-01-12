@@ -23,6 +23,8 @@ interface FormValues {
 export default function CountryPageWrapper({
 	clinics
 }: Props) {
+	console.log(clinics);
+
 	const [filteredClinics, setFilteredClinics] = useState(clinics);
 
 	const initialFormValues: FormValues = {

@@ -40,11 +40,11 @@ export default function TreatmentCard({
 					{/* Section 2: Reviews */}
 					<div className="col-span-4 sm:col-span-1 flex flex-col justify-center items-center ">
 						<div className="mb-2">
-							<StarRating rating={treatment.clinic.review.score} />
+							<StarRating rating={treatment.clinic.review.avgScore} />
 						</div>
-						<div className="text-sm text-muted-foreground">
+						{/* <div className="text-sm text-muted-foreground">
 							<a href={treatment.clinic.review.source} target="blank" className="hover:underline">{treatment.clinic.review.score} stars, {treatment.clinic.review.totalReviews} reviews</a>
-						</div>
+						</div> */}
 					</div>
 
 					{/* Section 3: Price per Graft and Grafts */}
@@ -68,7 +68,7 @@ export default function TreatmentCard({
 			{/* Footer with CTA button */}
 			<div className="px-6 py-4 bg-gray-50 flex space-y-4 md:space-y-0 flex-col md:flex-row md:justify-between md:items-center">
 				<div className="gap-1 text-muted-foreground text-sm space-y-2">
-					<div className="flex items-center mb-1">
+					{/* <div className="flex items-center mb-1">
 						<MapPin className="w-4 h-4 mr-2" />
 						<span>{treatment.clinic.city}, {treatment.clinic.country}</span>
 					</div>
@@ -78,7 +78,7 @@ export default function TreatmentCard({
 						<div className="flex gap-1">
 							{treatment.clinic.languages.join(', ')}
 						</div>
-					</div>
+					</div> */}
 				</div>
 
 				<a href={treatment.clinic.url} target="blank" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
