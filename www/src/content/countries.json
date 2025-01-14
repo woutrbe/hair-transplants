@@ -38,5 +38,10 @@
     "cc": "TW",
     "slug": "china-taiwan",
     "name": "China, Taiwan"
+  },
+  {
+    "cc": "GR",
+    "slug": "greece",
+    "name": "Greece"
   }
 ]
