@@ -15,14 +15,26 @@
     {
       "link": ["Clinics"],
       "sub": [
+        ["Austria", "/countries/austria"],
         ["Australia", "/countries/australia"],
         ["Belgium", "/countries/belgium"],
         ["China, Taiwan", "/countries/china-taiwan"],
+        ["Croatia", "/countries/croatia"],
+        ["Cyprus", "/countries/cyprus"],
+        ["Denmark", "/countries/denmark"],
+        ["Estonia", "/countries/estonia"],
+        ["Finland", "/countries/finland"],
+        ["France", "/countries/france"],
+        ["Greece", "/countries/greece"],
+        ["Georgia", "/countries/georgia"],
         ["Japan", "/countries/japan"],
         ["New Zealand", "/countries/new-zealand"],
         ["South Korea", "/countries/south-korea"],
+        ["Spain", "/countries/spain"],
         ["The Netherlands", "/countries/the-netherlands"],
-        ["Turkey", "/countries/turkey"]
+        ["Turkey", "/countries/turkey"],
+        ["The Philippines", "/countries/the-philippines"],
+        ["United States", "/countries/united-states"]
       ]
     },
     {

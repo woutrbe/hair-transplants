@@ -1,5 +1,10 @@
 [
   {
+    "cc": "AT",
+    "slug": "austria",
+    "name": "Austria"
+  },
+  {
     "cc": "AU",
     "slug": "australia",
     "name": "Australia"
@@ -43,5 +48,55 @@
     "cc": "GR",
     "slug": "greece",
     "name": "Greece"
+  },
+  {
+    "cc": "US",
+    "slug": "united-states",
+    "name": "United States"
+  },
+  {
+    "cc": "ES",
+    "slug": "spain",
+    "name": "Spain"
+  },
+  {
+    "cc": "PH",
+    "slug": "the-philippines",
+    "name": "The Philippines"
+  },
+  {
+    "cc": "HR",
+    "slug": "croatia",
+    "name": "Croatia"
+  },
+  {
+    "cc": "CY",
+    "slug": "cyprus",
+    "name": "Cyprus"
+  },
+  {
+    "cc": "GR",
+    "slug": "greece",
+    "name": "Greece"
+  },
+  {
+    "cc": "DK",
+    "slug": "denmark",
+    "name": "Denmark"
+  },
+  {
+    "cc": "EE",
+    "slug": "estonia",
+    "name": "Estonia"
+  },
+  {
+    "cc": "FI",
+    "slug": "finland",
+    "name": "Finland"
+  },
+  {
+    "cc": "GE",
+    "slug": "georgia",
+    "name": "Georgia"
   }
 ]
