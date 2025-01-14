@@ -12,8 +12,6 @@ export default function ProductFilterWrapper({
 }: {
 	treatments: TreatmentWithClinic[],
 }) {
-	console.log(treatments);
-
 	const [sortBy, setSortBy] = useState<string>('rating-asc');
 	const [filteredTreatments, setFilteredTreatments] = useState<TreatmentWithClinic[]>(treatments);
 	const [isLoading, setIsLoading] = useState<boolean>(false);

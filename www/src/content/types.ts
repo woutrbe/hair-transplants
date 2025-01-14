@@ -174,7 +174,7 @@ export const getClinics = async (): Promise<Clinic[]> => {
 		}
 
 		return clinic;
-	})
+	}).filter((c: Clinic) => c.slug.length);
 }
 export const getClinic = async (slug: string): Promise<Clinic> => {
 	const clinics = await getClinics();
@@ -210,7 +210,7 @@ export const getBranches = async (): Promise<Branch[]> => {
 			review: {
 				score: parseFloat(row['Review Score']),
 				source: row['Source'],
-				totalReviews: row['Total Reviews'],
+				totalReviews: parseFloat(row['Total Reviews']),
 			},
 
 			clinic_slug: row['clinic'],

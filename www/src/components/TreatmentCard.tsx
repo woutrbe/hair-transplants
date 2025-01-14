@@ -8,6 +8,9 @@ export default function TreatmentCard({
 }: {
 	treatment: TreatmentWithClinic;
 }) {
+	const allLanguages = Array.from(new Set(treatment.clinic.branches.flatMap(b => b.languages)));
+	const branches = treatment.clinic.branches;
+
 	return (
 		<div key={treatment.clinic.name} className="bg-white rounded-xl shadow-md overflow-hidden">
 			<div className="p-6">
@@ -42,9 +45,9 @@ export default function TreatmentCard({
 						<div className="mb-2">
 							<StarRating rating={treatment.clinic.review.avgScore} />
 						</div>
-						{/* <div className="text-sm text-muted-foreground">
-							<a href={treatment.clinic.review.source} target="blank" className="hover:underline">{treatment.clinic.review.score} stars, {treatment.clinic.review.totalReviews} reviews</a>
-						</div> */}
+						<div className="text-sm text-muted-foreground">
+							<a href={`/clinics/${treatment.clinic.slug}`} className="hover:underline">{treatment.clinic.review.totalReviews} reviews</a>
+						</div>
 					</div>
 
 					{/* Section 3: Price per Graft and Grafts */}
@@ -68,17 +71,21 @@ export default function TreatmentCard({
 			{/* Footer with CTA button */}
 			<div className="px-6 py-4 bg-gray-50 flex space-y-4 md:space-y-0 flex-col md:flex-row md:justify-between md:items-center">
 				<div className="gap-1 text-muted-foreground text-sm space-y-2">
-					{/* <div className="flex items-center mb-1">
+					{branches.length === 1 && <div className="flex items-center mb-1">
 						<MapPin className="w-4 h-4 mr-2" />
-						<span>{treatment.clinic.city}, {treatment.clinic.country}</span>
-					</div>
+						<span>{branches[0].city}, {branches[0].country}</span>
+					</div>}
+
+					{branches.length > 1 && <div>
+
+					</div>}
 
 					<div className="flex items-center">
 						<MessageCircle className="w-4 h-4 mr-2" />
 						<div className="flex gap-1">
-							{treatment.clinic.languages.join(', ')}
+							{allLanguages.join(', ')}
 						</div>
-					</div> */}
+					</div>
 				</div>
 
 				<a href={treatment.clinic.url} target="blank" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">

@@ -26,13 +26,13 @@ export default function GoogleMapsComponent({ clinics }: MapProps) {
 
 	const onLoad = React.useCallback(function callback(map: google.maps.Map) {
 		const bounds = new window.google.maps.LatLngBounds()
-		clinics.forEach(clinic => {
-			const lat = parseFloat(clinic.lat.toString());
-			const lng = parseFloat(clinic.lng.toString());
+		clinics.forEach(clinic => clinic.branches.forEach(branch => {
+			const lat = parseFloat(branch.lat.toString());
+			const lng = parseFloat(branch.lng.toString());
 			if (!isNaN(lat) && !isNaN(lng)) {
 				bounds.extend({ lat, lng });
 			}
-		});
+		}));
 
 		if (clinics.length === 1) {
 			map.setCenter(bounds.getCenter());
@@ -51,20 +51,20 @@ export default function GoogleMapsComponent({ clinics }: MapProps) {
 					zoom={2}
 					onLoad={onLoad}
 				>
-					{clinics.map((clinic, index) => {
-						const lat = parseFloat(clinic.lat.toString());
-						const lng = parseFloat(clinic.lng.toString());
+					{clinics.flatMap(clinic => clinic.branches.map((branch, index) => {
+						const lat = parseFloat(branch.lat.toString());
+						const lng = parseFloat(branch.lng.toString());
 						if (!isNaN(lat) && !isNaN(lng)) {
 							return (
 								<Marker
-									key={index}
+									key={[index, lat, lng].join('_')}
 									position={{ lat, lng }}
 									title={clinic.name}
 								/>
 							);
 						}
 						return null;
-					})}
+					}))}
 				</GoogleMap>
 			) : <></>}
 		</div>

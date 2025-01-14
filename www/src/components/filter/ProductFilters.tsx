@@ -39,11 +39,11 @@ export default function ProductFilters({
 		rating: '0-5',
 
 		method: ['FUE'],
-		country: Array.from(new Set(treatments.map(t => t.clinic.countryCode))),
+		country: Array.from(new Set(treatments.flatMap(t => t.clinic.branches.map(b => b.countryCode)))),
 	}
 
 	const countriesByContinent: { [key: string]: ICountryData[] } = useMemo(() => {
-		const uniqueCountries: TCountryCode[] = Array.from(new Set(treatments.map(t => t.clinic.countryCode as TCountryCode)));
+		const uniqueCountries: TCountryCode[] = Array.from(new Set(treatments.flatMap(t => t.clinic.branches.map(b => b.countryCode as TCountryCode))));
 
 		const groupedCountries: { [key: string]: ICountryData[] } = {};
 		uniqueCountries.map(c => getCountryData(c)).forEach(country => {
@@ -70,11 +70,11 @@ export default function ProductFilters({
 		// Rating
 		const [minRating, maxRating] = filters.rating.split('-');
 		if (minRating && maxRating) {
-			treatments = treatments.filter(t => t.clinic.review.score >= parseFloat(minRating) && t.clinic.review.score <= parseFloat(maxRating));
+			treatments = treatments.filter(t => t.clinic.review.avgScore >= parseFloat(minRating) && t.clinic.review.avgScore <= parseFloat(maxRating));
 		}
 
 		// Countries
-		treatments = treatments.filter(t => filters.country.includes(t.clinic.countryCode));
+		treatments = treatments.filter(t => t.clinic.branches.some(b => filters.country.includes(b.countryCode)));
 
 		return treatments;
 	}
@@ -222,6 +222,7 @@ export default function ProductFilters({
 									))}
 								</div>
 							</div>
+
 							<div>
 								<button className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-md px-5 py-3" type="submit">Find your clinic</button>
 							</div>

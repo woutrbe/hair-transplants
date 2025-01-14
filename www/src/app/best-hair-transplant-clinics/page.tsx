@@ -20,7 +20,7 @@ export default async function Page() {
 		<div className="mb-20">
 			<h2 className="font-bold text-3xl mb-5">Best Hair Transplant Clinics</h2>
 
-			<ClinicPageFilters clinics={allClinics.sort((a, b) => a.review.score = b.review.score)} />
+			<ClinicPageFilters clinics={allClinics.sort((a, b) => a.review.avgScore = b.review.avgScore)} />
 		</div>
 	);
 }

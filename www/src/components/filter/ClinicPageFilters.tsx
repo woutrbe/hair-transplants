@@ -3,13 +3,12 @@
 import { useEffect, useState } from "react";
 import { Clinic } from "../../content/types";
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import GoogleMapsComponent from "@/components/GoogleMaps";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { Globe, MapPin, MessageCircle, Scissors } from "lucide-react";
+import { ChevronRight, Globe, MapPin, MessageCircle, Scissors } from "lucide-react";
 import StarRating from "../StarRating";
 import { Formik, useFormikContext } from "formik";
+import Checkbox from "../ui/Checkbox";
 
 interface Props {
 	clinics: Clinic[];
@@ -17,164 +16,187 @@ interface Props {
 
 interface FormValues {
 	search: string;
-	method: string;
+	method: string[];
 }
 
 export default function CountryPageWrapper({
 	clinics
 }: Props) {
-	console.log(clinics);
+	const allMethods = Array.from(new Set(clinics.flatMap(c => c.treatments.map(t => t.method))));
 
 	const [filteredClinics, setFilteredClinics] = useState(clinics);
 
 	const initialFormValues: FormValues = {
 		search: '',
-		method: 'all',
+		method: ['ALL', ...allMethods],
 	}
 
 	return <>
-		<Formik
-			initialValues={initialFormValues}
-			onSubmit={(values: FormValues) => {
-				let allClinics = clinics;
+		<div className="flex gap-5 relative">
+			<div className="w-full md:w-1/4">
+				<div className="sticky top-4 border border-gray-300 p-5">
+					<Formik
+						initialValues={initialFormValues}
+						onSubmit={(values: FormValues) => {
+							let allClinics = clinics;
 
-				console.log(allClinics);
+							const searchText = values.search.toLowerCase();
+							allClinics = allClinics.filter(clinic => {
+								return [
+									clinic.name.toLowerCase().includes(searchText),
+									...clinic.branches.flatMap(branch => [
+										branch.city.toLocaleLowerCase().includes(searchText),
+										branch.location.toLocaleLowerCase().includes(searchText),
+									]),
+								].some(value => value)
+							});
 
-				const searchText = values.search.toLowerCase();
-				allClinics = allClinics.filter(clinic => {
-					return [
-						clinic.name.toLowerCase().includes(searchText),
-						clinic.city.toLocaleLowerCase().includes(searchText),
-						clinic.location.toLocaleLowerCase().includes(searchText),
-					].some(value => value)
-				});
+							allClinics = allClinics.filter(clinic => {
+								if (values.method.includes('ALL')) return true;
 
-				allClinics = allClinics.filter(clinic => {
-					if(values.method === 'all') return true;
+								const methods = Array.from(new Set((clinic.treatments || []).map(t => t.method)));
 
-					const methods = Array.from(new Set((clinic.treatments || []).map(t => t.method)));
+								return methods.some(method => values.method.includes(method));
+							});
 
-					return methods.includes(values.method);
-				});
+							setFilteredClinics(allClinics);
+						}}
+					>
+						{({
+							handleSubmit,
+							values,
+							handleChange,
+							handleBlur,
+							resetForm,
+							submitForm
+						}) => (
+							<form onSubmit={handleSubmit}>
+								<div className="space-y-5 filters">
+									<div className="border-b border-gray-300 pb-2 flex justify-between items-center mb-5">
+										<div className="text-xl font-semibold">Filters</div>
+										<div
+											className="border border-gray-300 rounded px-5 py-2 text-sm cursor-pointer hover:bg-gray-100"
+											onClick={() => {
+												resetForm();
+												submitForm();
+											}}
+										>Clear filters</div>
+									</div>
 
-				setFilteredClinics(allClinics);
-			}}
-		>
-			{({
-				handleSubmit,
-				values,
-				setFieldValue,
-				handleChange,
-				handleBlur
-			}) => (
-				<form onSubmit={handleSubmit}>
-					<div className="mb-8 flex flex-col sm:flex-row gap-4">
-						<Input
-							name="search"
-							placeholder="Search clinics..."
-							className="flex-grow"
-							value={values.search}
-							onChange={handleChange}
-							onBlur={handleBlur}
-						/>
-						<Select
-							value={values.method}
-							onValueChange={(value: string) => {
-								setFieldValue('method', value);
-							}}
-						>
-							<SelectTrigger className="w-full sm:w-[180px]">
-								<SelectValue placeholder="Filter by specialty" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="all">All Specialties</SelectItem>
-								<SelectItem value="DHI">DHI</SelectItem>
-								<SelectItem value="FUE">FUE</SelectItem>
-								<SelectItem value="Micro FUE">Micro FUE</SelectItem>
-							</SelectContent>
-						</Select>
-					</div>
+									<div className="filter">
+										<Input
+											name="search"
+											placeholder="Search clinics..."
+											className="flex-grow"
+											value={values.search}
+											onChange={handleChange}
+											onBlur={handleBlur}
+										/>
+									</div>
 
-					<AutoSubmitForm />
-				</form>
-			)}
-		</Formik>
+									<div className="filter">
+										<div className="filter__title">Treatment method</div>
 
-		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-			{filteredClinics.map((clinic, index) => {
-				const languageArray = clinic.languages;
-				const methodsArray = Array.from(new Set((clinic.treatments || []).map(t => t.method)));
+										<div className="space-y-2">
+											{['ALL', ...allMethods].map(t => t).filter(t => t.length > 0).map(option => (
+												<Checkbox key={option} name="method" value={option} htmlFor={option} label={option} />
+											))}
+										</div>
+									</div>
 
-				return (
-					<Card key={index} className="w-full group relative overflow-hidden">
-						<CardHeader className="flex flex-col items-center space-y-4 pb-6">
-							<div className="w-32 h-32 overflow-hidden flex items-center justify-center">
-								<img
-									src={`/clinics/${clinic.imagePath}`}
-									alt={`${clinic.name} logo`}
-									width={200}
-									height={60}
-									className="rounded-lg"
-								/>
+									<div>
+										<button className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-md px-5 py-3" type="submit">Find your clinic</button>
+									</div>
+								</div>
+
+								<AutoSubmitForm />
+							</form>
+						)}
+					</Formik>
+				</div>
+			</div>
+
+			<div className="w-full md:w-3/4">
+				<div className="space-y-6">
+					{filteredClinics.map((clinic, index) => clinic.branches.flatMap(branch => {
+						const allLanguages = Array.from(new Set(clinic.branches.flatMap(b => b.languages)));
+						const methodsArray = Array.from(new Set((clinic.treatments || []).map(t => t.method)));
+
+						return (
+							<div key={index} className="w-full group border">
+								<div className="flex p-5">
+									<div className="w-1/2">
+										<div className="space-y-4">
+											<h3>
+												<a href={`/clinics/${clinic.slug}`} title={clinic.name} className="text-xl font-bold hover:underline">
+													{clinic.name}
+												</a>
+											</h3>
+											<div>
+												<img
+													src={`/clinics/${clinic.imagePath}`}
+													alt={`${clinic.name} logo`}
+													width={200}
+													height={60}
+													className="rounded-lg"
+												/>
+											</div>
+										</div>
+									</div>
+
+									<div className="w-1/2">
+										<div className="grid gap-4">
+											<div className="flex items-center justify-between">
+												<div className="flex items-center space-x-2">
+													<Globe className="h-4 w-4" />
+													<a href={clinic.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{clinic.url}</a>
+												</div>
+											</div>
+											<div className="flex items-center space-x-2">
+												<MapPin className="h-4 w-4" />
+												<span>{branch.location}, {branch.city}, {branch.country}</span>
+											</div>
+											<div className="flex items-center space-x-2">
+												<MessageCircle className="h-4 w-4" />
+												<div className="flex flex-wrap gap-1">
+													{allLanguages.map((lang, index) => (
+														<Badge key={index} variant="secondary">{lang}</Badge>
+													))}
+												</div>
+											</div>
+											<div className="flex items-center space-x-2">
+												<StarRating rating={clinic.review.avgScore} />
+												<div className="text-sm text-muted-foreground">
+													<a href={branch.review.source} target="_blank" className="hover:underline">{branch.review.score} stars, {branch.review.totalReviews} reviews</a>
+												</div>
+											</div>
+											{methodsArray.length > 0 && <div className="flex items-center space-x-2">
+												<Scissors className="h-4 w-4" />
+												<div className="flex flex-wrap gap-1">
+													{methodsArray.map((method, index) => (
+														<Badge key={index} variant="secondary">{method}</Badge>
+													))}
+												</div>
+											</div>}
+											<div>
+												{/* <span className="font-semibold">Consultation:</span> {clinic.ConsultationPrice === 0 ? 'Free' : `${clinic.ConsultationPrice} ${clinic.local_currency}`} */}
+												{clinic.consulationOnline && <Badge className="ml-2" variant="outline">Online Available</Badge>}
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div className="bg-gray-50 p-5">
+									<a href={`/clinics/${clinic.slug}`} className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
+										Learn more about {clinic.name}
+										<ChevronRight className="w-4 h-4" />
+									</a>
+								</div>
 							</div>
-							<CardTitle className="text-xl font-bold text-center">
-								<a href={`/clinics/${clinic.slug}`} title={clinic.name}>
-									{clinic.name}
-								</a>
-							</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<div className="grid gap-4">
-								<div className="flex items-center justify-between">
-									<div className="flex items-center space-x-2">
-										<Globe className="h-4 w-4" />
-										<a href={clinic.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{clinic.url}</a>
-									</div>
-								</div>
-								<div className="flex items-center space-x-2">
-									<MapPin className="h-4 w-4" />
-									<span>{clinic.location}, {clinic.city}, {clinic.country}</span>
-								</div>
-								<div className="flex items-center space-x-2">
-									<MessageCircle className="h-4 w-4" />
-									<div className="flex flex-wrap gap-1">
-										{languageArray.map((lang, index) => (
-											<Badge key={index} variant="secondary">{lang}</Badge>
-										))}
-									</div>
-								</div>
-								<div className="flex items-center space-x-2">
-									<StarRating rating={clinic.review.score} />
-									<div className="text-sm text-muted-foreground">
-										<a href={clinic.review.source} target="blank" className="hover:underline">{clinic.review.score} stars, {clinic.review.totalReviews} reviews</a>
-									</div>
-								</div>
-								<div className="flex items-center space-x-2">
-									<Scissors className="h-4 w-4" />
-									<div className="flex flex-wrap gap-1">
-										{methodsArray.map((method, index) => (
-											<Badge key={index} variant="secondary">{method}</Badge>
-										))}
-									</div>
-								</div>
-								<div>
-									{/* <span className="font-semibold">Consultation:</span> {clinic.ConsultationPrice === 0 ? 'Free' : `${clinic.ConsultationPrice} ${clinic.local_currency}`} */}
-									{clinic.consulationOnline && <Badge className="ml-2" variant="outline">Online Available</Badge>}
-								</div>
-							</div>
-						</CardContent>
-						<div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gray-700 bg-opacity-50">
-							<a
-								href={`/clinics/${clinic.slug}`}
-								className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2"
-								title="Learn More"
-							>
-								Learn More
-							</a>
-						</div>
-					</Card>
-				)
-			})}
+						)
+					}))}
+				</div>
+			</div>
 		</div>
 
 		<div className="mt-8">
