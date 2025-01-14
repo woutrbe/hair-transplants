@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getClinic, getClinics, TreatmentWithClinic } from "../../../content/types";
 import TreatmentCard from "../../../components/TreatmentCard";
 import StarRating from "../../../components/StarRating";
-import { ChevronRight, Globe, MapPin, MessageCircle, Scissors } from "lucide-react";
+import { ChevronRight, Globe, Scissors } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
 import GoogleMapsComponent from "@/components/GoogleMaps";
 import { DoctorCarousel } from "@/components/DoctorCarousel";
