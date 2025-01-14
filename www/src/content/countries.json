@@ -98,5 +98,10 @@
     "cc": "GE",
     "slug": "georgia",
     "name": "Georgia"
+  },
+  {
+    "cc": "FR",
+    "slug": "france",
+    "name": "France"
   }
 ]
