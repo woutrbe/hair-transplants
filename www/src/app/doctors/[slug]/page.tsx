@@ -46,7 +46,7 @@ export default async function DoctorPage(props: Props) {
 						<h5 className="font-semibold mb-5">Profile details</h5>
 
 						{doctor.img && <div>
-							<img src={doctor.img} title={doctor.name} className="w-32 h-32" />
+							<img src={doctor.img} title={doctor.name} alt={doctor.name} className="w-32 h-32" />
 						</div>}
 
 						<div>Dr. {doctor.name}</div>

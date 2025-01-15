@@ -1,28 +1,23 @@
-import Image from 'next/image'
-import { Card, CardContent } from "@/components/ui/card"
+import { Doctor } from '../content/types'
 
 interface DoctorCardProps {
-	name: string
-	imageUrl: string
+	doctor: Doctor;
 }
 
-export function DoctorCard({ name, imageUrl }: DoctorCardProps) {
+export function DoctorCard({ doctor }: DoctorCardProps) {
 	return (
-		<Card className="overflow-hidden">
-			<CardContent className="p-0">
-				<div className="relative aspect-square">
-					<Image
-						src={imageUrl}
-						alt={`Dr. ${name}`}
-						fill
-						className="object-cover"
-					/>
-				</div>
-				<div className="p-4 h-24 flex items-center justify-center">
-					<h3 className="text-lg font-semibold text-center line-clamp-3">Dr. {name}</h3>
-				</div>
-			</CardContent>
-		</Card>
+		<div className="border border-gray-300 rounded">
+			<div className="relative aspect-square">
+				<img
+					src={doctor.img}
+					alt={`Dr. ${doctor.name}`}
+					className="object-cover"
+				/>
+			</div>
+			<div className="p-4 h-24 flex items-center justify-center">
+				<h3 className="text-lg font-semibold text-center line-clamp-3">Dr. {doctor.name}</h3>
+			</div>
+		</div>
 	)
 }
 

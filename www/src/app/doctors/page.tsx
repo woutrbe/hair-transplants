@@ -37,7 +37,7 @@ export default async function DoctorsPage() {
 							<div className="space-y-1">
 								{doctors.map(doctor => {
 									return (
-										<div>
+										<div key={doctor.slug}>
 											<a href={`/doctors/${doctor.slug}`} title={`Dr. ${doctor.name}`} className="hover:underline">Dr. {doctor.name}</a>
 										</div>
 									)

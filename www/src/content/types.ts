@@ -118,7 +118,7 @@ export const getCountries = async (): Promise<Country[]> => {
 export const getCountry = async (slug: string): Promise<Country> => {
 	const data = await getJSONFile<Country[]>('countries');
 	const country = data.find(c => c.slug === slug);
-	if(!country) {
+	if (!country) {
 		throw new Error(`Country not found ${slug}`);
 	}
 
@@ -127,7 +127,7 @@ export const getCountry = async (slug: string): Promise<Country> => {
 export const getCountryByCC = async (CC: string): Promise<Country> => {
 	const data = await getJSONFile<Country[]>('countries');
 	const country = data.find(c => c.slug === CC);
-	if(!country) {
+	if (!country) {
 		throw new Error(`Country not found ${CC}`);
 	}
 
@@ -135,7 +135,7 @@ export const getCountryByCC = async (CC: string): Promise<Country> => {
 }
 
 export const getClinics = async (): Promise<Clinic[]> => {
-	const content = readFileSync(`${process.cwd()}/src/content/clinics.csv`, 'utf-8');
+	const content = readFileSync(`${process.cwd()}/src/content/Clinics - Clinics.csv`, 'utf-8');
 	const parsed = parse(content, {
 		columns: true,
 		skip_empty_lines: true,
@@ -146,9 +146,9 @@ export const getClinics = async (): Promise<Clinic[]> => {
 	const allDoctors: Doctor[] = await getDoctors();
 
 	return parsed.map((d: any) => {
-		const branches = allBranches.filter(b => b.clinic_slug === d['slug']);
-		const treatments = allTreatments.filter(t => t.clinic_slug === d['slug']);
-		const doctors = allDoctors.filter(d => d.clinic_slug === d['slug']);
+		const branches = allBranches.filter(branch => branch.clinic_slug === d['slug']);
+		const treatments = allTreatments.filter(treatment => treatment.clinic_slug === d['slug']);
+		const doctors = allDoctors.filter(doctor => doctor.clinic_slug === d['slug']);
 
 		const clinic: Clinic = {
 			slug: d['slug'],
@@ -180,7 +180,7 @@ export const getClinic = async (slug: string): Promise<Clinic> => {
 	const clinics = await getClinics();
 	const clinic = clinics.find(c => c.slug === slug);
 
-	if(!clinic) {
+	if (!clinic) {
 		throw new Error(`Clinic not found ${slug}`);
 	}
 
@@ -188,7 +188,7 @@ export const getClinic = async (slug: string): Promise<Clinic> => {
 }
 
 export const getBranches = async (): Promise<Branch[]> => {
-	const content = readFileSync(`${process.cwd()}/src/content/branches.csv`, 'utf-8');
+	const content = readFileSync(`${process.cwd()}/src/content/Clinics - Branch.csv`, 'utf-8');
 	const parsed = parse(content, {
 		columns: true,
 		skip_empty_lines: true,
@@ -221,7 +221,7 @@ export const getBranches = async (): Promise<Branch[]> => {
 }
 
 export const getDoctors = async (): Promise<Doctor[]> => {
-	const content = readFileSync(`${process.cwd()}/src/content/doctors.csv`, 'utf-8');
+	const content = readFileSync(`${process.cwd()}/src/content/Clinics - Doctors.csv`, 'utf-8');
 	const parsed = parse(content, {
 		columns: true,
 		skip_empty_lines: true,
@@ -245,7 +245,7 @@ export const getDocotor = async (slug: string): Promise<Doctor> => {
 	const doctors = await getDoctors();
 	const doctor = doctors.find(d => d.slug === slug);
 
-	if(!doctor) {
+	if (!doctor) {
 		throw new Error(`Doctor not found ${slug}`);
 	}
 
@@ -253,7 +253,7 @@ export const getDocotor = async (slug: string): Promise<Doctor> => {
 }
 
 export const getTreatments = async (): Promise<Treatment[]> => {
-	const content = readFileSync(`${process.cwd()}/src/content/products.csv`, 'utf-8');
+	const content = readFileSync(`${process.cwd()}/src/content/Clinics - Products.csv`, 'utf-8');
 	const parsed = parse(content, {
 		columns: true,
 		skip_empty_lines: true,
@@ -295,7 +295,7 @@ const getMarkdownFiles = async <T>(directory: string): Promise<T[]> => {
 export const getPages = async (): Promise<Page[]> => await getMarkdownFiles<Page>('pages');
 export const getPage = async (slug: string): Promise<Page> => {
 	const page = (await getMarkdownFiles<Page>('pages')).find(p => p.data.slug === slug);
-	if(!page) throw new Error(`Page ${slug} not found.`);
+	if (!page) throw new Error(`Page ${slug} not found.`);
 
 	return page;
 };

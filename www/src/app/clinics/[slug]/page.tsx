@@ -2,10 +2,11 @@ import { Metadata } from "next";
 import { getClinic, getClinics, TreatmentWithClinic } from "../../../content/types";
 import TreatmentCard from "../../../components/TreatmentCard";
 import StarRating from "../../../components/StarRating";
-import { ChevronRight, Globe, Scissors } from "lucide-react";
+import { ChevronRight, Globe, MessageCircle, Scissors } from "lucide-react";
 import { Badge } from "../../../components/ui/badge";
 import GoogleMapsComponent from "@/components/GoogleMaps";
-import { DoctorCarousel } from "@/components/DoctorCarousel";
+import { DoctorCard } from "../../../components/DoctorCard";
+import ClinicBranchCard from "../../../components/ClinicBranchCard";
 
 interface Props {
 	params: {
@@ -50,92 +51,93 @@ export default async function ClinicPage(props: Props) {
 	}
 
 	const methods = Array.from(new Set((clinic.treatments || []).map(t => t.method)));
+	const languages = Array.from(new Set(clinic.branches.flatMap(b => b.languages)));
 
 	return (
 		<div>
-			<div className="relative flex flex-col md:flex-row space-y-10 md:space-y-0 md:space-x-10 bg">
-				<div className="md:w-6/12">
-					<div className="space-y-5 sticky top-5">
-						<h2 className="font-bold text-3xl mb-5">{clinic.name}</h2>
+			<div className="border-b border-gray-300 py-10 text-center mb-10">
+				<h4 className="font-semibold text-3xl mb-2">{clinic.name}</h4>
+			</div>
 
-						<div className="gap-1 text-muted-foreground text-sm space-y-2">
+			<div className="space-y-10">
+				<div className="flex gap-10">
+					<div className="w-2/6">
+						<div className="border border-gray-300 border-t-2 border-t-purple-600 p-5 space-y-5">
+							<h5 className="font-semibold">Clinic details</h5>
+
+							<div>{clinic.name}</div>
+
 							<div className="flex items-center space-x-2">
 								<Globe className="h-4 w-4" />
 								<a href={clinic.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{clinic.url}</a>
 							</div>
 
-							<div className="flex items-center space-x-2">
+							{methods.length > 0 && <div className="flex items-center space-x-2">
 								<Scissors className="h-4 w-4" />
 								<div className="flex flex-wrap gap-1">
 									{methods.map((method, index) => (
 										<Badge key={index} variant="secondary">{method}</Badge>
 									))}
 								</div>
-							</div>
-						</div>
+							</div>}
 
-						<div>
-							{clinic.consulationOnline && <Badge variant="outline">Online Available</Badge>}
-						</div>
+							{languages.length > 0 && <div className="flex items-center">
+								<MessageCircle className="w-4 h-4 mr-2" />
+								<div className="flex gap-1 text-muted-foreground text-sm">
+									{languages.join(', ')}
+								</div>
+							</div>}
 
-						<div>
-							<div className="mb-2">
-								<StarRating rating={clinic.review.avgScore} />
+							<div>
+								<div className="mb-2">
+									<StarRating rating={clinic.review.avgScore} />
+								</div>
+								<div className="text-sm text-muted-foreground">
+									{clinic.review.avgScore} stars, {clinic.review.totalReviews} reviews
+								</div>
 							</div>
-							<div className="text-sm text-muted-foreground">
-								{clinic.review.avgScore} stars, {clinic.review.totalReviews} reviews
+
+							<div>
+								{clinic.consulationOnline && <Badge variant="outline">Online Available</Badge>}
+							</div>
+
+							<div>
+								<a href={clinic.url} target="blank" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
+									Book Consultation
+									<ChevronRight className="w-4 h-4" />
+								</a>
 							</div>
 						</div>
-						<div className="mt-5">
-							<p>some images of associations?</p>
-						</div>
-						<div>
-							<a href={clinic.url} target="blank" className="bg-white border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-lg px-5 py-3 inline-flex items-center gap-2">
-								Book Consultation
-								<ChevronRight className="w-4 h-4" />
-							</a>
-						</div>
+					</div>
+
+					<div className="w-auto">
+						<GoogleMapsComponent clinics={[clinic]} />
 					</div>
 				</div>
 
-				<div className="md:w-6/12">
-					<h3 className="text-2xl font-bold mb-4">Doctors</h3>
-					<div className="mt-5">
-						<DoctorCarousel />
+				{clinic.doctors.length > 0 && <div>
+					<h4 className="text-3xl font-semibold mb-5">Doctors</h4>
+
+					<div className="grid grid-cols-1 grid-cols-4 gap-10">
+						{clinic.doctors.map(d => <DoctorCard key={d.slug} doctor={d} />)}
+					</div>
+				</div>}
+
+				{treatments.length > 0 && <div>
+					<h4 className="text-3xl font-semibold mb-5">Treatments</h4>
+
+					<div className="space-y-5">
+						{treatments.map((t, i) => <TreatmentCard treatment={t} key={i} />)}
+					</div>
+				</div>}
+
+				<div>
+					<h4 className="text-3xl font-semibold mb-5">Clinic Locations</h4>
+
+					<div className="space-y-5">
+						{clinic.branches.map((branch, index) => <ClinicBranchCard key={index} clinic={clinic} branch={branch} />)}
 					</div>
 				</div>
-			</div>
-
-			<div className="md:w-6/12">
-				{treatments.map((t, i) => <TreatmentCard treatment={t} key={i} />)}
-			</div>
-
-			<div className="md:w-6/12">
-				<h3 className="text-2xl font-bold mb-4">Clinic Locations</h3>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-4">
-					{clinic.branches.map((branch, index) => {
-						return <div key={index} className="bg-white rounded-xl shadow-md overflow-hidden">
-							<div key={index}>
-								<div className="px-6 py-4 bg-gray-50 text-muted-foreground text-sm space-y-4">
-									<div className="flex items-center mb-1">
-										<span>{branch.location}, {branch.city}, {branch.country}</span>
-									</div>
-								</div>
-								<div className="flex flex-col items-center p-6 space-y-5">
-									<div className="flex justify-center">
-										<StarRating rating={branch.review.score} />
-									</div>				
-									<div className="text-sm text-muted-foreground text-center">
-										<a href={branch.review.source} target="blank" className="hover:underline">{branch.review.score} stars, {branch.review.totalReviews} reviews</a>
-									</div>	
-								</div>
-							</div>
-						</div>
-					})}
-				</div>
-			</div>
-			<div className="mt-5">
-				<GoogleMapsComponent clinics={[clinic]} />
 			</div>
 		</div>
 	);
