@@ -121,17 +121,15 @@ export default async function RootLayout({
 							<div className="text-slate-900">We’ve gathered all the information you need so you can easily search for hair transplant clinics across the globe. Start your journey today with our user-friendly filter and sort options.</div>
 						</div>
 
-						<div className="grid grid-cols-1 md:grid-cols-3 space-y-10 md:space-y-0">
+						<div className="grid grid-flow-col">
 							<div>
 								<h3 className="text-slate-900 text-xl font-semibold mb-5">Countries</h3>
-								<div className="text-slate-900">
-									<ul>
-										{countries.map(country => {
-											return <li key={country.slug}>
-												<a href={`/countries/${country.slug}`} title={country.name}>{country.name}</a>
-											</li>
-										})}
-									</ul>
+								<div className="text-slate-900 grid grid-cols-1 md:grid-cols-3">
+									{countries.map(country => {
+										return <div key={country.slug}>
+											<a href={`/countries/${country.slug}`} title={country.name} className="hover:underline">{country.name}</a>
+										</div>
+									})}
 								</div>
 							</div>
 

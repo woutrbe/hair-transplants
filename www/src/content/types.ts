@@ -241,6 +241,16 @@ export const getDoctors = async (): Promise<Doctor[]> => {
 		return doctor;
 	})
 }
+export const getDocotor = async (slug: string): Promise<Doctor> => {
+	const doctors = await getDoctors();
+	const doctor = doctors.find(d => d.slug === slug);
+
+	if(!doctor) {
+		throw new Error(`Doctor not found ${slug}`);
+	}
+
+	return doctor;
+}
 
 export const getTreatments = async (): Promise<Treatment[]> => {
 	const content = readFileSync(`${process.cwd()}/src/content/products.csv`, 'utf-8');
