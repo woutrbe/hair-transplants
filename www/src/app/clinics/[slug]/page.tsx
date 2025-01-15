@@ -110,7 +110,7 @@ export default async function ClinicPage(props: Props) {
 						</div>
 					</div>
 
-					<div className="w-auto">
+					<div className="w-4/6">
 						<GoogleMapsComponent clinics={[clinic]} />
 					</div>
 				</div>
