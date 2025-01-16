@@ -103,5 +103,10 @@
     "cc": "FR",
     "slug": "france",
     "name": "France"
+  },
+  {
+    "cc": "GE",
+    "slug": "germany",
+    "name": "Germany"
   }
 ]
