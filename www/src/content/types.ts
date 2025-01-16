@@ -3,14 +3,7 @@ import { glob } from "glob";
 import matter from "gray-matter";
 import { parse } from 'csv-parse/sync';
 
-export type Config = {
-	navigation: [
-		{
-			link: [string, string],
-			sub: [string, string][],
-		}
-	],
-}
+export type Config = any;
 
 export type Country = {
 	cc: string;
@@ -231,9 +224,11 @@ export const getDoctors = async (): Promise<Doctor[]> => {
 		const doctor: Doctor = {
 			slug: row['slug'],
 			name: row['name'],
-			img: row['img'],
+			...row['img'] && {
+				img: `/doctors/${row['img']}.png`,
+			},
 			description: row['description'],
-			website: row['website'],
+			website: row['Website'],
 
 			clinic_slug: row['clinic'],
 		}

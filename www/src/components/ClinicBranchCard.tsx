@@ -37,31 +37,31 @@ export default function ClinicBranchCard({ clinic, branch }: Props) {
 				<div className="w-1/2">
 					<div className="grid gap-4">
 						<div className="flex items-center justify-between">
-							<div className="flex  space-x-2">
-								<Globe className="h-4 w-4" />
+							<div className="flex items-center space-x-2">
+								<Globe className="size-4" />
 								<a href={clinic.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{clinic.url}</a>
 							</div>
 						</div>
-						<div className="flex space-x-2">
-							<MapPin className="h-4 w-4" />
+						<div className="flex items-start space-x-2">
+							<MapPin className="size-4" />
 							<span>{branch.location}, {branch.city}, {branch.country}</span>
 						</div>
 						<div className="flex items-center space-x-2">
-							<MessageCircle className="h-4 w-4" />
+							<MessageCircle className="size-4" />
 							<div className="flex flex-wrap gap-1">
 								{allLanguages.map((lang, index) => (
 									<Badge key={index} variant="secondary">{lang}</Badge>
 								))}
 							</div>
 						</div>
-						<div className="flex items-center space-x-2">
+						{branch.review.score > 0 && <div className="flex items-center space-x-2">
 							<StarRating rating={clinic.review.avgScore} />
 							<div className="text-sm text-muted-foreground">
 								<a href={branch.review.source} target="_blank" className="hover:underline">{branch.review.score} stars, {branch.review.totalReviews} reviews</a>
 							</div>
-						</div>
+						</div>}
 						{methodsArray.length > 0 && <div className="flex items-center space-x-2">
-							<Scissors className="h-4 w-4" />
+							<Scissors className="size-4" />
 							<div className="flex flex-wrap gap-1">
 								{methodsArray.map((method, index) => (
 									<Badge key={index} variant="secondary">{method}</Badge>

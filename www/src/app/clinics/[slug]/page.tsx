@@ -60,8 +60,8 @@ export default async function ClinicPage(props: Props) {
 			</div>
 
 			<div className="space-y-10">
-				<div className="flex gap-10">
-					<div className="w-2/6">
+				<div className="flex flex-col md:flex-row gap-10">
+					<div className="w-full md:w-2/6">
 						<div className="border border-gray-300 border-t-2 border-t-purple-600 p-5 space-y-5">
 							<h5 className="font-semibold">Clinic details</h5>
 
@@ -88,14 +88,14 @@ export default async function ClinicPage(props: Props) {
 								</div>
 							</div>}
 
-							<div>
+							{clinic.review.avgScore > 0 && <div>
 								<div className="mb-2">
 									<StarRating rating={clinic.review.avgScore} />
 								</div>
 								<div className="text-sm text-muted-foreground">
 									{clinic.review.avgScore} stars, {clinic.review.totalReviews} reviews
 								</div>
-							</div>
+							</div>}
 
 							<div>
 								{clinic.consulationOnline && <Badge variant="outline">Online Available</Badge>}
@@ -110,7 +110,7 @@ export default async function ClinicPage(props: Props) {
 						</div>
 					</div>
 
-					<div className="w-4/6">
+					<div className="w-full md:w-4/6">
 						<GoogleMapsComponent clinics={[clinic]} />
 					</div>
 				</div>

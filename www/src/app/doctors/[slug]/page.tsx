@@ -40,21 +40,21 @@ export default async function DoctorPage(props: Props) {
 				<p className="text-gray-800">Hair transplant specialist</p>
 			</div>
 
-			<div className="flex gap-10">
-				<div className="w-1/4">
+			<div className="flex flex-col md:flex-row gap-10">
+				<div className="w-full md:w-1/4">
 					<div className="border border-gray-300 border-t-2 border-t-purple-600 p-5">
 						<h5 className="font-semibold mb-5">Profile details</h5>
 
-						{doctor.img && <div>
-							<img src={doctor.img} title={doctor.name} alt={doctor.name} className="w-32 h-32" />
+						{doctor.img && <div className="mb-2">
+							<img src={doctor.img} title={doctor.name} alt={doctor.name} className="w-32 h-32 rounded-full" />
 						</div>}
 
-						<div>Dr. {doctor.name}</div>
+						<div className="font-semibold">Dr. {doctor.name}</div>
 						{doctor.website && <div><a href={doctor.website} target="_blank">{doctor.website}</a></div>}
 					</div>
 				</div>
 
-				<div className="w-3/4">
+				<div className="w-full md:w-3/4">
 					{clinic && <ClinicCard clinic={clinic} />}
 				</div>
 			</div>
