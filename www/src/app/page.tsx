@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getClinics, getHomepage, TreatmentWithClinic } from "../content/types";
+import { getClinics, getHomepage, getOrganisations, TreatmentWithClinic } from "../content/types";
 import ProductFilterWrapper from "../components/filter/ProductFilterWrapper";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,6 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
 	const homepage = await getHomepage();
+	const organisations = await getOrganisations();
 
 	const clinics = await getClinics();
 	const treatments: TreatmentWithClinic[] = clinics.flatMap(c=> (c.treatments || []).map(t => {
@@ -32,10 +33,20 @@ export default async function Home() {
 				<ProductFilterWrapper treatments={treatments} />
 			</div>
 
-			<div className="max-w-3xl mx-auto mb-10">
-				<div className="text-center mb-2">
-					<div className="text-2xl font-medium  mb-2">Frequently asked questions</div>
+			<div className="max-w-3xl mx-auto mb-20">
+				<h3 className="text-2xl text-center font-medium mb-5">Organisations</h3>
+
+				<div className="flex space-x-5 justify-center items-center">
+					{organisations.map(org => {
+						return <div key={org.slug}>
+							<img className="max-h-[100px] max-w-[250px]" src={org.img} title={org.name} alt={org.name} />
+						</div>
+					})}
 				</div>
+			</div>
+
+			<div className="max-w-3xl mx-auto mb-10">
+				<h3 className="text-2xl text-center font-medium mb-5">Frequently asked questions</h3>
 
 				{homepage.data.faq.map((faq, i) => {
 					return (

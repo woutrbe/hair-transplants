@@ -32,6 +32,7 @@ export type Clinic = {
 	branches: Branch[];
 	treatments: Treatment[];
 	doctors: Doctor[];
+	organisations: Organisation[];
 }
 
 export type Branch = {
@@ -63,6 +64,14 @@ export type Doctor = {
 	website: string;
 
 	clinic_slug: string;
+}
+
+export type Organisation = {
+	slug: string;
+	name: string;
+	url: string;
+	img: string;
+	description: string;
 }
 
 export type Treatment = {
@@ -137,6 +146,7 @@ export const getClinics = async (): Promise<Clinic[]> => {
 	const allTreatments: Treatment[] = await getTreatments();
 	const allBranches: Branch[] = await getBranches();
 	const allDoctors: Doctor[] = await getDoctors();
+	const allOrganisations: Organisation[] = await getOrganisations();
 
 	return parsed.map((d: any) => {
 		const branches = allBranches.filter(branch => branch.clinic_slug === d['slug']);
@@ -160,6 +170,10 @@ export const getClinics = async (): Promise<Clinic[]> => {
 				avgScore: branches.reduce((sum, branch) => sum + branch.review.score, 0) / branches.length,
 				totalReviews: branches.reduce((sum, branch) => sum + branch.review.totalReviews, 0)
 			},
+
+			organisations: d['Organisations'].split(',').map((o: string) => {
+				return allOrganisations.find(org => org.slug === o)
+			}),
 
 			branches,
 			treatments,
@@ -278,6 +292,25 @@ export const getTreatments = async (): Promise<Treatment[]> => {
 		return treatment;
 	})
 };
+
+export const getOrganisations = async (): Promise<Organisation[]> => {
+	const content = readFileSync(`${process.cwd()}/src/content/Clinics - Societies.csv`, 'utf-8');
+	const parsed = parse(content, {
+		columns: true,
+		skip_empty_lines: true,
+	});
+
+	return parsed.map((row: any) => {
+		const organisation: Organisation = {
+			slug: row['slug'],
+			name: row['name'],
+			url: row['URL'],
+			img: row['img'],
+			description: row['Description'],
+		}
+		return organisation;
+	});
+}
 
 const getMarkdownFiles = async <T>(directory: string): Promise<T[]> => {
 	const files = await glob(`${process.cwd()}/src/content/${directory}/**/*.md`);
