@@ -108,5 +108,10 @@
     "cc": "DE",
     "slug": "germany",
     "name": "Germany"
+  },
+  {
+    "cc": "HU",
+    "slug": "hungary",
+    "name": "Hungary"
   }
 ]
