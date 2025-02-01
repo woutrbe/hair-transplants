@@ -33,6 +33,16 @@ export type Clinic = {
 	treatments: Treatment[];
 	doctors: Doctor[];
 	organisations: Organisation[];
+
+	socials?: {
+		linkedin?: string;
+		instagram?: string;
+		facebook?: string;
+		youtube?: string;
+		tiktok?: string;
+		twitter?: string;
+		whatsapp?: string;
+	}
 }
 
 export type Branch = {
@@ -174,6 +184,16 @@ export const getClinics = async (): Promise<Clinic[]> => {
 			organisations: d['Organisations'].split(',').map((o: string) => {
 				return allOrganisations.find(org => org.slug === o)
 			}),
+
+			socials: {
+				linkedin: d['LinkedIn'],
+				instagram: d['Instagram'],
+				facebook: d['Facebook'],
+				youtube: d['Youtube'],
+				tiktok: d['TikTok'],
+				twitter: d['X'],
+				whatsapp: d['Whatsapp'],
+			},
 
 			branches,
 			treatments,
