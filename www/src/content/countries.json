@@ -113,5 +113,10 @@
     "cc": "HU",
     "slug": "hungary",
     "name": "Hungary"
+  },
+  {
+    "cc": "IR",
+    "slug": "ireland",
+    "name": "Ireland"
   }
 ]
