@@ -56,7 +56,7 @@ export default async function ClinicPage(props: Props) {
 	return (
 		<div>
 			<div className="border-b border-gray-300 py-10 text-center mb-10">
-				<h4 className="font-semibold text-3xl mb-2">{clinic.name}</h4>
+				<h3 className="font-semibold text-3xl mb-2">{clinic.name}</h3>
 			</div>
 
 			<div className="space-y-10">

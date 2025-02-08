@@ -35,7 +35,7 @@ export default async function CountryPage(props: Props) {
 	const filteredByCountry = allClinics.filter(c => c.branches.some(branch => branch.countryCode === country.cc));
 	return (
 		<div className="mb-20">
-			<h2 className="font-bold text-3xl mb-5">Hair transplant clinics in {country.name}</h2>
+			<h3 className="font-bold text-3xl mb-5">Hair transplant clinics in {country.name}</h3>
 
 			<ClinicPageFilters clinics={filteredByCountry} />
 		</div>

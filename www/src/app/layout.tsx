@@ -106,11 +106,11 @@ export default async function RootLayout({
 				<footer className="bg-[#e6f3f3]">
 					<div className="container mx-auto px-4 py-10">
 						<div className="mb-14">
-							<h1 className="mb-3">
+							<h5 className="mb-3">
 								<a href="/" title="Hair compare" className="text-2xl text-black">
 									HairClinicFinder.
 								</a>
-							</h1>
+							</h5>
 							<div className="text-slate-900 mb-2">Helping you find the best hair transplant clinics worldwide.</div>
 							<div className="text-slate-900">We’ve gathered all the information you need so you can easily search for hair transplant clinics across the globe. Start your journey today with our user-friendly filter and sort options.</div>
 						</div>

@@ -17,7 +17,7 @@ export default async function CountriesPage() {
 
 	return (
 		<div>
-			<h2 className="font-bold text-3xl mb-5">All countries</h2>
+			<h3 className="font-bold text-3xl mb-5">All countries</h3>
 
 			<div className="grid grid-cols-1 md:grid-cols-3">
 				{countries.sort((a, b) => a.name.localeCompare(b.name)).map(country => {

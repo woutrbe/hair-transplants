@@ -36,7 +36,7 @@ export default async function DoctorPage(props: Props) {
 	return (
 		<div>
 			<div className="border-b border-gray-300 py-10 text-center mb-10">
-				<h4 className="font-semibold text-3xl mb-2">Dr. {doctor.name}</h4>
+				<h3 className="font-semibold text-3xl mb-2">Dr. {doctor.name}</h3>
 				<p className="text-gray-800">Hair transplant specialist</p>
 			</div>
 

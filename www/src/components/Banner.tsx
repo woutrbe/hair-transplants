@@ -2,9 +2,9 @@ export default function Banner() {
     return (
         <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="lg:w-2/4 mb-8 md:mb-0">
-                <h1 className="text-4xl md:text-5xl leading-xl font-bold text-gray-800 mb-4">
+                <h2 className="text-4xl md:text-5xl leading-xl font-bold text-gray-800 mb-4">
                     We help you find the best clinics for your hair transplant surgery
-                </h1>
+                </h2>
 
                 <p className="text-gray-600 mb-6">
                     We’ve gathered all the information you need so you can easily search for hair transplant clinics across the globe. Start your journey today with our user-friendly filter and sort options.
