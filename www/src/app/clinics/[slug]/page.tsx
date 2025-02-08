@@ -138,7 +138,7 @@ export default async function ClinicPage(props: Props) {
 								</div>}
 								{clinic.socials?.whatsapp && <div className="flex items-center space-x-2">
 									<PhoneIcon className="h-4 w-4" />
-									<a href={clinic.socials.whatsapp} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{clinic.socials.whatsapp}</a>
+									<a href={`whatsapp://send?phone=${clinic.socials.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{clinic.socials.whatsapp}</a>
 								</div>}
 							</div>
 						</div>

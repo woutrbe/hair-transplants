@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
 		description: `Best Hair Transplant Clinics`,
 
 		alternates: {
-			canonical: `${process.env.URL}/countries/best-hair-transplant-clinics`,
+			canonical: `${process.env.URL}/best-hair-transplant-clinics`,
 		}
 	}
 }
